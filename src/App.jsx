@@ -5,6 +5,7 @@ import log1 from './assets/mdggis.jpg'
 import log2 from './assets/ukk.jpg'
 import log3 from './assets/eurohim.jpg'
 import doc from './assets/conference.pdf'
+import { useSpring, animated } from '@react-spring/web';
 
 function YandexMap() {
   const mapRef = useRef(null);
@@ -180,21 +181,15 @@ function Header() {
 function MapSection(section) {
   return section.mapSection ? (
     (
-      
-    <div
-    style={{
-      width: '100%',
-      maxWidth: '800px',
-      margin: '20px auto',
-      position: 'relative',
-    }}
-      >
-        <div
-       className="section-content"
-      >г. Пермь, Комсомольский проспект, 29, кафедра МДГиГИС Пермского Политеха</div>
+      <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '80%',
+      maxWidth: '900px'}}>
+      <div 
+       className="section-content" style={{ textAlign: 'center'}}
+      > г. Пермь, Комсомольский проспект, 29, кафедра МДГиГИС Пермского Политеха</div>
+    
   <div
     style={{
-      position: 'absolute',
+      position: 'relative',
       top: 0,
       left: 0,
       width: '100%',
@@ -220,21 +215,68 @@ function MapSection(section) {
   
 }
 
+function Contacts() {
+  return (
+    <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+      <p style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <i className="fab fa-telegram" style={{ fontSize: '1.5rem', color: '#0088cc' }}></i>
+        <a href="https://t.me/gartchiza90" target="_blank" rel="noopener noreferrer" style={{ color: '#0088cc', textDecoration: 'none' }}>
+          @gartchiza90
+        </a>
+      </p>
+      <p style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <i className="fas fa-envelope" style={{ fontSize: '1.5rem', color: '#444' }}></i>
+        <a href="mailto:gartanastasiya90@gmail.com" style={{ color: '#444', textDecoration: 'none' }}>
+          gartanastasiya90@gmail.com
+        </a>
+      </p>
+      <p>
+        cот.: +7-919-492-44-58
+      </p>
+        <p>
+        Гарт Анастасия Андреевна, менеджер по работе с клиентами
+      </p>
+    </div>
+  )
+}
+
+function Registration () {
+return (
+  <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>              
+    <button className="main-action-btn" onClick={() => window.open('https://t.me/gartchiza90', '_blank', 'noopener,noreferrer')}>Зарегистрироваться</button>
+    <div
+      className="section-content"
+      style={{
+        fontSize: '0.95rem',
+        color: '#888',
+        marginTop: 20,
+      }}
+    >
+      * Организационный взнос за участие не предусмотрен
+    </div>
+    
+      <button className="small-action-btn"
+      onClick={e => {
+        window.open(doc, '_blank', 'noopener,noreferrer')
+        e.preventDefault()
+    }}
+      >Получить программу</button>
+  </div>
+)}
 
 function App() {
   const sectionRefs = useRef([])
+  const [visibleSections, setVisibleSections] = useState([])
 
   useEffect(() => {
     const handleScroll = () => {
-      sectionRefs.current.forEach((ref) => {
-        if (!ref) return
-        const rect = ref.getBoundingClientRect()
-        if (rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.2) {
-          ref.classList.add('in-view')
-        } else {
-          ref.classList.remove('in-view')
-        }
-      })
+      setVisibleSections(
+        sectionRefs.current.map(ref => {
+          if (!ref) return false
+          const rect = ref.getBoundingClientRect()
+          return rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.2
+        })
+      )
     }
     window.addEventListener('scroll', handleScroll)
     handleScroll()
@@ -245,12 +287,21 @@ function App() {
     <div>
       <Header />
       {sections.map((section, idx) => {
-        const inView = sectionRefs.current[idx]?.classList.contains('in-view')
+        const isVisible = visibleSections[idx]
+        const spring = useSpring({
+          opacity: isVisible ? 1 : 0,
+          transform: isVisible ? 'translateY(0px)' : 'translateY(50px)',
+          scale: isVisible ? 1 : 0.98,
+          config: { tension: 220, friction: 15 },
+          delay: 100,
+          background: section.bg ? section.bg : 'transparent',
+        })
         return (
-          <section
+          <animated.section
             key={idx}
             ref={el => sectionRefs.current[idx] = el}
-            className={`section ${section.bg} ${inView ? 'in-view' : ''}`}
+            style={spring}
+            className={`section ${section.bg} `}
             id={section.type}
           >
             {section.image ? <img
@@ -260,21 +311,8 @@ function App() {
               loading="lazy"
             /> : null}
             <div className="section-title">{section.title}</div>
-           
-             {section.type === 'purpose' ? (
-              <div className="section-content-small" style={{ textAlign: 'left', margin: '0 auto'}}>
-          {String(section.content).split('\n').map((line, i) => (
-            <span key={i} style={{ display: 'block' }}>{line}</span>
-          ))}
-          <div className="section-content"
-          style={{marginTop: 20, textAlign: 'left'}}
-          >
-            Мы уверены, что наш опыт разработки и внедрения программных решений для добывающей отрасли будет ценным вкладом в обсуждение, а участие в конференции поможет найти ответы на актуальные вопросы вашего предприятия
-          </div>
-              </div>
-             ) : (
-              <div className="section-content">{section.content}</div>
-            )}
+            <div className="section-content">{section.content}</div>
+            
             
             {section.type === 'header' && (
               <div className="section-content">
@@ -293,54 +331,10 @@ function App() {
 
             {section.type === 'location' && (MapSection(section))}
             
-            {section.type === 'registration' && (
-              <>
-              <div></div>
-          <button className="main-action-btn" onClick={() => window.open('https://t.me/gartchiza90', '_blank', 'noopener,noreferrer')}>Зарегистрироваться</button>
-          <div
-            className="section-content"
-            style={{
-              fontSize: '0.95rem',
-              color: '#888',
-              marginTop: 20,
-            }}
-          >
-            * Организационный взнос за участие не предусмотрен
-          </div>
-          
-           <button className="small-action-btn"
-           onClick={e => {
-              window.open(doc, '_blank', 'noopener,noreferrer')
-              e.preventDefault()
-          }}
-           >Получить программу</button>
-              </>
-            )}
+            {section.type === 'registration' && <Registration />}
             
-
-            {section.type === 'contact' && (
-             <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-              <p style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <i className="fab fa-telegram" style={{ fontSize: '1.5rem', color: '#0088cc' }}></i>
-                <a href="https://t.me/gartchiza90" target="_blank" rel="noopener noreferrer" style={{ color: '#0088cc', textDecoration: 'none' }}>
-                  @gartchiza90
-                </a>
-              </p>
-              <p style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <i className="fas fa-envelope" style={{ fontSize: '1.5rem', color: '#444' }}></i>
-                <a href="mailto:gartanastasiya90@gmail.com" style={{ color: '#444', textDecoration: 'none' }}>
-                  gartanastasiya90@gmail.com
-                </a>
-              </p>
-              <p>
-                cот.: +7-919-492-44-58
-              </p>
-               <p>
-                Гарт Анастасия Андреевна, менеджер по работе с клиентами
-              </p>
-            </div>
-            )}
-          </section>
+            {section.type === 'contact' &&  <Contacts />}
+          </animated.section>
         )
       })}
     </div>
