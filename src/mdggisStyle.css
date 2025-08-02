@@ -52,6 +52,20 @@
   background: var(--background);
   transition: background 0.6s cubic-bezier(0.4,0,0.2,1);
 }
+
+.logo-section {
+  width: 100vw;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  padding: 4rem 2rem 0 2rem;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+  background: var(--background);
+}
+
 .bc-gradient {
   background: var(--background-alt);
 }
@@ -161,7 +175,7 @@
   z-index: 100;
   background: var(--header-bg);
   box-shadow: 0 2px 16px rgba(0,0,0,0.1);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - 330px) 100%, calc(100% - 350px) 50%, 0 50%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - 180px) 100%, calc(100% - 200px) 50%, 0 50%);
   backdrop-filter: blur(12px);
   padding: 0.5rem 0;
 }
@@ -235,6 +249,6 @@ body {
     font-size: 1.1rem;
   }
   .main-header {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - 360px) 100%, calc(100% - 380px) 50%, 0 50%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - 220px) 100%, calc(100% - 240px) 50%, 0 50%);
   }
 }

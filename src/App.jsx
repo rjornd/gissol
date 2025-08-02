@@ -4,8 +4,8 @@ import pnipulogo from './assets/pinpulogo.png'
 import log1 from './assets/mdggis.jpg'
 import log2 from './assets/ukk.jpg'
 import log3 from './assets/eurohim.jpg'
-import doc from './assets/conference.pdf'
 import { useSpring, animated } from '@react-spring/web';
+import SphereScene from './SphereScene'
 
 function YandexMap() {
   const mapRef = useRef(null);
@@ -47,37 +47,15 @@ function YandexMap() {
 const sections = [
   {
     type: 'header',
-    title: 'ГОРНО-НЕФТЯНОЙ ФАКУЛЬТЕТ',
-    content: "Кафедра маркшейдерского дела, геодезии и геоинформационных систем",
-    image: pnipulogo,
+    title: 'О компании',
+    content: "Мы были одними из первых, кто начал создание и внедрение цифровых технологий в добывающих компаниях",
+    //image: pnipulogo,
     bg: 'bc-gradient',
-  },
-  {
-    type: 'participants',
-    title: 'Конференция 2025',
-    content: 'Мы рады пригласить вас принять участие в профессиональной конференции пользователей программных продуктов кафедры МДГиГИС, посвящённой обмену опытом в области оптимизации и повышения эффективности бизнес-процессов в горнодобывающей промышленности',
-    //image: 
-    bg: '',
-  },
-  {
-    type: 'purpose',
-    title: 'Цель мероприятия',
-    content: '✔️ Обсудить современные решения в управлении производством \n ✔️ Познакомиться с лучшими практиками внедрения цифровых технологий кафедры на площадках ведущих компаний отрасли \n ✔️ Изучить инновационные технологии для повышения операционной и экономической эффективности\n ✔️ Установить новые деловые контакты и найти возможности для сотрудничества',
-    //image: 
-    bg: 'bc-gradient',
-  },
-  {
-    type: 'registration',
-    title: 'Регистрация',
-    content: 'Просим подтвердить ваше участие в конференции, связавшись с организаторами по ссылке ниже',
-   // image: 
-    bg: '',
-    
   },
   {
     type: 'location',
-    title: 'Дата и место проведения',
-    content: '11-12 сентября 2025 г', 
+    title: 'Наше местоположение',
+    content: '', 
     bg: 'bc-gradient',
     mapSection: true, // специальный флаг для секции с картой
   },
@@ -90,13 +68,11 @@ const sections = [
 ]
 
 const galleryImages = [
-  log1,
   log2,
   log3
 ]
 
 const galleryCaptions = [
-  'Кафедра "МДГиГИС"',
   'ПАО "Уралкалий"',
   'АО "Еврохим"'
 ]
@@ -163,14 +139,10 @@ function Header() {
     <header className="main-header">
       <nav className="main-nav">
         <a
-          href={doc}
+          href='#aboutus'
           className="nav-link"
-          onClick={e => {
-              window.open(doc, '_blank', 'noopener,noreferrer')
-              e.preventDefault()
-          }}
         >
-          Программа мероприятия
+          О нас
         </a>
         <a href="#contact" className="nav-link">Контакты</a>
       </nav>
@@ -264,6 +236,32 @@ return (
   </div>
 )}
 
+function CompanyLogoSection(){
+  return (
+    <section
+        key={0}
+        className='logo-section'
+        style={{ 
+          display: 'flex', 
+          flexDirection: 'row', 
+          alignItems: 'left', 
+          justifyContent: 'center', 
+          background: 'linear-gradient(to bottom, #113f83ff, #7a0dacff)', /* Adjusted gradient to match palette */
+          padding: '20px'
+        }}
+      >
+      
+      <SphereScene />
+      <div className='section-content' style={{color:"#f5f9faff", justifyContent: 'center', alignItems: 'center', minHeight: '100%', marginBottom: '0px'}}>
+      
+      <span style={{display: 'block' }} >{'ГЕОИНФОРМАЦИОННЫЕ'}</span>
+      <span style={{display: 'block', textAlign: 'left'}}>{'РЕШЕНИЯ'}</span>
+      </div>
+      
+    </section>
+  )
+}
+
 function App() {
   const sectionRefs = useRef([])
   const [visibleSections, setVisibleSections] = useState([])
@@ -283,9 +281,11 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+
   return (
     <div>
       <Header />
+      <CompanyLogoSection />
       {sections.map((section, idx) => {
         const isVisible = visibleSections[idx]
         const spring = useSpring({
@@ -298,7 +298,7 @@ function App() {
         })
         return (
           <animated.section
-            key={idx}
+            key={idx+1}
             ref={el => sectionRefs.current[idx] = el}
             style={spring}
             className={`section ${section.bg} `}
@@ -313,12 +313,17 @@ function App() {
             <div className="section-title">{section.title}</div>
             <div className="section-content">{section.content}</div>
             
-            
             {section.type === 'header' && (
-              <div className="section-content">
-              <p>Предлагает принять участие в конференции</p>
+              <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                <div className="section-content"> Сегодня группа предоставляет комплекс услуг по созданию, внедрению и поддержке горно-геологических информационных систем для добывающих компаний</div>
+                <div className="section-content"> Наши клиенты </div>
+              <ImageGallery
+              style={{ marginTop: 10 }}
+              />
               </div>
             )}
+
+           
             
             {section.type === 'participants' && (
               <div>
