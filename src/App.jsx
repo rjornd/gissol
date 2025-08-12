@@ -6,6 +6,8 @@ import log2 from './assets/ukk.jpg'
 import log3 from './assets/eurohim.jpg'
 import { useSpring, animated } from '@react-spring/web';
 import SphereScene from './SphereScene'
+import { Card, Row, Col } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function YandexMap() {
   const mapRef = useRef(null);
@@ -32,7 +34,7 @@ function YandexMap() {
           mapRef.current.innerHTML = '';
         }
         new window.ymaps.Map(mapRef.current, {
-          center: [58.008295, 56.240250],
+          center: [58.015566, 56.233252],
           zoom: 17,
         });
       });
@@ -44,13 +46,30 @@ function YandexMap() {
   );
 }
 
+
+//  <p> Наши клиенты </p>
+//           <ImageGallery
+//           style={{ marginTop: 10 }}
+//           />
+
 const sections = [
   {
     type: 'header',
     title: 'О компании',
-    content: "Мы были одними из первых, кто начал создание и внедрение цифровых технологий в добывающих компаниях",
     //image: pnipulogo,
     bg: 'bc-gradient',
+  },
+  {
+    type: 'achivments',
+    title: 'Наши достижения',
+    content: (
+      <div style={{ textAlign: 'justify' }}>
+        Выполненный нашей командой проект "Создание и внедрение горно-геологической информационной системы (ГГИС) на рудниках ПАО "Уралкалий" (цифровой двойник рудника)" стал лучшим ИТ-проектом России и стран СНГ (категория — «Лучшее отраслевое решение, номинация — «Металлургия и непрерывное производство») по версии профессионального сообщества лидеров цифровой трансформации GlobalCIO|DigitalExperts. <br/><br/>
+        Всего в конкурсе участвовало 193 ИТ-проекта. <a href="https://www.uralkali.com/ru/press_center/company_news/item42943/" target="_blank" rel="noopener noreferrer">Ссылка на сайт</a>. <br/><br/>
+        Проект выполнялся по заказу компании ПАО "Уралкалий" и на начало июня 2020 года с различными модулями ГГИС в онлайн-режиме работают более 300 специалистов «Уралкалия» — горняки, геологи, маркшейдеры, геомеханики, а также эксперты АО «ВНИИ Галургии» и Горного института Уральского отделения РАН.
+      </div>
+    ),
+    bg: ''
   },
   {
     type: 'location',
@@ -136,15 +155,15 @@ function ImageGallery({ style }) {
 
 function Header() {
   return (
-    <header className="main-header">
-      <nav className="main-nav">
+    <header className="main-header-class">
+      <nav className="main-nav-class">
         <a
           href='#aboutus'
-          className="nav-link"
+          className="nav-link-class"
         >
           О нас
         </a>
-        <a href="#contact" className="nav-link">Контакты</a>
+        <a href="#contact" className="nav-link-class">Контакты</a>
       </nav>
     </header>
   )
@@ -157,7 +176,7 @@ function MapSection(section) {
       maxWidth: '900px'}}>
       <div 
        className="section-content" style={{ textAlign: 'center'}}
-      > г. Пермь, Комсомольский проспект, 29, кафедра МДГиГИС Пермского Политеха</div>
+      > Российская Федерация, г. Пермь, ул. Монастырская, д. 12, офис 104</div>
     
   <div
     style={{
@@ -190,23 +209,23 @@ function MapSection(section) {
 function Contacts() {
   return (
     <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-      <p style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      {/* <p style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <i className="fab fa-telegram" style={{ fontSize: '1.5rem', color: '#0088cc' }}></i>
         <a href="https://t.me/gartchiza90" target="_blank" rel="noopener noreferrer" style={{ color: '#0088cc', textDecoration: 'none' }}>
           @gartchiza90
         </a>
-      </p>
+      </p> */}
       <p style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <i className="fas fa-envelope" style={{ fontSize: '1.5rem', color: '#444' }}></i>
-        <a href="mailto:gartanastasiya90@gmail.com" style={{ color: '#444', textDecoration: 'none' }}>
-          gartanastasiya90@gmail.com
+        <a href="mailto:gissolutions@ya.ru" style={{ color: '#444', textDecoration: 'none' }}>
+          gissolutions@ya.ru
         </a>
       </p>
       <p>
-        cот.: +7-919-492-44-58
+        cот.: +7(3422)-799-654
       </p>
         <p>
-        Гарт Анастасия Андреевна, менеджер по работе с клиентами
+        Директор ООО "ГИС-Решения": Антон Вадимович Оверин
       </p>
     </div>
   )
@@ -254,17 +273,91 @@ function CompanyLogoSection(){
       <SphereScene />
       <div className='section-content' style={{color:"#f5f9faff", justifyContent: 'center', alignItems: 'center', minHeight: '100%', marginBottom: '0px'}}>
       
-      <span style={{display: 'block' }} >{'ГЕОИНФОРМАЦИОННЫЕ'}</span>
-      <span style={{display: 'block', textAlign: 'left'}}>{'РЕШЕНИЯ'}</span>
+      <span style={{display: 'block' }} >{'ООО "ГИС РЕШЕНИЯ"'}</span>
+      <span style={{display: 'block', textAlign: 'left'}}>{''}</span>
       </div>
       
     </section>
   )
 }
 
+function ProductSection({ isVisible, onClose }) {
+  
+  return (
+    <div
+      className={`section ${isVisible ? 'visible' : ''}`}
+      style={{
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#fff',
+        boxShadow: '-2px 0 5px rgba(0,0,0,0.1)',
+        transform: isVisible ? 'translateX(0)' : 'translateX(100%)',
+        transition: 'transform 0.3s ease-in-out',
+        zIndex: 1000,
+        padding: '20px',
+        overflowY: 'auto',
+      }}
+    >
+      <div >
+        <button
+        onClick={onClose}
+        style={{
+          marginBottom: '20px',
+          fontSize: '1.5rem',
+          padding: '10px',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+        }}
+        aria-label="Назад"
+      >
+        ←
+      </button>
+      <h3 className='section-title'>Продукты и решения</h3>
+      <Row>
+        <Col md={4}>
+          <Card style={{ marginBottom: '10px' }}>
+            <Card.Img variant="top" src="/src/assets/abcd.jpg" alt="Продукт 1" />
+            <Card.Body>
+              <Card.Title>Продукт 1</Card.Title>
+              <Card.Text>Описание продукта 1</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={4}>
+          <Card style={{ marginBottom: '10px' }}>
+            <Card.Img variant="top" src="/src/assets/abce.jpg" alt="Продукт 2" />
+            <Card.Body>
+              <Card.Title>Продукт 2</Card.Title>
+              <Card.Text>Описание продукта 2</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={4}>
+          <Card style={{ marginBottom: '10px' }}>
+            <Card.Img variant="top" src="/src/assets/mdggis.jpg" alt="Продукт 3" />
+            <Card.Body>
+              <Card.Title>Продукт 3</Card.Title>
+              <Card.Text>Описание продукта 3</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const sectionRefs = useRef([])
   const [visibleSections, setVisibleSections] = useState([])
+  const [isProductSectionVisible, setProductSectionVisible] = useState(false);
+ const toggleProductSection = () => {
+    setProductSectionVisible(!isProductSectionVisible);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -281,6 +374,11 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (!visibleSections[0] && isProductSectionVisible) {
+      setProductSectionVisible(false);
+    }
+  }, [visibleSections, isProductSectionVisible]);
 
   return (
     <div>
@@ -313,17 +411,18 @@ function App() {
             <div className="section-title">{section.title}</div>
             <div className="section-content">{section.content}</div>
             
-            {section.type === 'header' && (
-              <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-                <div className="section-content"> Сегодня группа предоставляет комплекс услуг по созданию, внедрению и поддержке горно-геологических информационных систем для добывающих компаний</div>
-                <div className="section-content"> Наши клиенты </div>
-              <ImageGallery
-              style={{ marginTop: 10 }}
-              />
-              </div>
-            )}
-
+            {section.type === 'header' && 
+            (<div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+              <p>ООО "ГИС-Решения" - это команда профессионалов, которая занимается разработкой и внедрением горно-геологических информационных систем (ГГИС) для предприятий горнодобывающей отрасли.</p>
+              <p>Мы создаем программные продукты, которые позволяют оптимизировать процессы добычи, повысить безопасность и эффективность работы.</p>
+              <button className='main-action-btn' onClick={toggleProductSection}>Продукты и решения</button>
+              <ProductSection
+              isVisible={isProductSectionVisible}
+              onClose={() => setProductSectionVisible(false)}
+            />
+            </div>
            
+            )}
             
             {section.type === 'participants' && (
               <div>
@@ -342,6 +441,7 @@ function App() {
           </animated.section>
         )
       })}
+      
     </div>
   )
 }
