@@ -4,7 +4,7 @@
   --primary-dark: #008ba3;
   --primary-light: #23d7eb;
   --background: #ffffff;
-  --background-alt: #f5f7fa;
+  --background-alt: #f5f7fab9;
   --text-primary: #2c3e50;
   --text-secondary: #546e7a;
   --header-bg: rgba(44, 62, 80, 0.95);
@@ -46,7 +46,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 4rem 2rem 0 2rem;
+  padding: 0rem 2rem 1rem 2rem;
   box-sizing: border-box;
   scroll-snap-align: start;
   background: var(--background);
@@ -252,4 +252,13 @@ body {
   .main-header-class {
     clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - 220px) 100%, calc(100% - 240px) 50%, 0 50%);
   }
+}
+
+#tsparticles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }

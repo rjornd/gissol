@@ -6,8 +6,42 @@ import log2 from './assets/ukk.jpg'
 import log3 from './assets/eurohim.jpg'
 import { useSpring, animated } from '@react-spring/web';
 import SphereScene from './SphereScene'
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card, Row, Col, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/cards.css';
+import ParticlesBackground from "./ParticlesBg";
+
+const cardsData = [
+  { text: 'Расчёт плановых нормативов потерь', link: '/gis' },
+  { text: 'Модуль "3D-Рудник"', link: '/gis' },
+  { text: 'Комплексная ГИС для предприятия', link: '/gis' },
+  { text: 'Картографические материалы в цифровом виде', link: '/maps' },
+  { text: 'Разработка интеграций с современными ГИС', link: '/integration' },
+  { text: 'Автоматизация маркшейдерских работ', link: '/survey' },
+  { text: 'Автоматизация геофизических работ', link: '/geophysics' },
+  { text: 'Автоматизация геологических работ', link: '/geology' },
+  { text: 'Автоматизация горных работ', link: '/mining' },
+  { text: 'Электронное формирование документов', link: '/documents' },
+  { text: 'Месторождения углеводородного сырья', link: '/oil' }
+];
+function CardGrids() {
+  return (
+      <div className='section-content'>
+      <Container>
+  <div className="cards-row">
+    {cardsData.map((card, idx) => (
+      <a key={idx} href={card.link} className="card-link">
+        <Card className="custom-card">
+          <div>{card.text}</div>
+        </Card>
+      </a>
+    ))}
+  </div>
+</Container>
+    </div>
+  );
+}
+
 
 function YandexMap() {
   const mapRef = useRef(null);
@@ -55,7 +89,13 @@ function YandexMap() {
 const sections = [
   {
     type: 'header',
-    title: 'О компании',
+    title: '',
+    //image: pnipulogo,
+    bg: '',
+  },
+  {
+    type: 'products',
+    title: 'Продукты и решения',
     //image: pnipulogo,
     bg: 'bc-gradient',
   },
@@ -284,70 +324,11 @@ function CompanyLogoSection(){
 function ProductSection({ isVisible, onClose }) {
   
   return (
-    <div
-      className={`section ${isVisible ? 'visible' : ''}`}
-      style={{
-        position: 'fixed',
-        top: 0,
-        right: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#fff',
-        boxShadow: '-2px 0 5px rgba(0,0,0,0.1)',
-        transform: isVisible ? 'translateX(0)' : 'translateX(100%)',
-        transition: 'transform 0.3s ease-in-out',
-        zIndex: 1000,
-        padding: '20px',
-        overflowY: 'auto',
-      }}
-    >
-      <div >
-        <button
-        onClick={onClose}
-        style={{
-          marginBottom: '20px',
-          fontSize: '1.5rem',
-          padding: '10px',
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-        }}
-        aria-label="Назад"
-      >
-        ←
-      </button>
-      <h3 className='section-title'>Продукты и решения</h3>
-      <Row>
-        <Col md={4}>
-          <Card style={{ marginBottom: '10px' }}>
-            <Card.Img variant="top" src="/src/assets/abcd.jpg" alt="Продукт 1" />
-            <Card.Body>
-              <Card.Title>Продукт 1</Card.Title>
-              <Card.Text>Описание продукта 1</Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={4}>
-          <Card style={{ marginBottom: '10px' }}>
-            <Card.Img variant="top" src="/src/assets/abce.jpg" alt="Продукт 2" />
-            <Card.Body>
-              <Card.Title>Продукт 2</Card.Title>
-              <Card.Text>Описание продукта 2</Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={4}>
-          <Card style={{ marginBottom: '10px' }}>
-            <Card.Img variant="top" src="/src/assets/mdggis.jpg" alt="Продукт 3" />
-            <Card.Body>
-              <Card.Title>Продукт 3</Card.Title>
-              <Card.Text>Описание продукта 3</Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+    
+      <div style={{topMargin: '20px', padding: '20px', background: '#f5f9fa', borderRadius: '12px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', display: isVisible ? 'block' : 'none'}}>
+       
+      <CardGrids  />
       </div>
-    </div>
   );
 }
 
@@ -395,6 +376,7 @@ function App() {
           background: section.bg ? section.bg : 'transparent',
         })
         return (
+          
           <animated.section
             key={idx+1}
             ref={el => sectionRefs.current[idx] = el}
@@ -411,19 +393,24 @@ function App() {
             <div className="section-title">{section.title}</div>
             <div className="section-content">{section.content}</div>
             
-            {section.type === 'header' && 
-            (<div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+            {section.type === 'header' && (
+              <>
+              <div className='section-title'>О Компании</div>
+              <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
               <p>ООО "ГИС-Решения" - это команда профессионалов, которая занимается разработкой и внедрением горно-геологических информационных систем (ГГИС) для предприятий горнодобывающей отрасли.</p>
               <p>Мы создаем программные продукты, которые позволяют оптимизировать процессы добычи, повысить безопасность и эффективность работы.</p>
               <button className='main-action-btn' onClick={toggleProductSection}>Продукты и решения</button>
-              <ProductSection
-              isVisible={isProductSectionVisible}
-              onClose={() => setProductSectionVisible(false)}
-            />
             </div>
-           
-            )}
-            
+            </>)
+          }
+            {
+              section.type === 'products' &&(
+                <div className='section-content'>
+                  <p>Мы предлагаем широкий спектр продуктов и решений для горнодобывающей отрасли</p>
+                  <CardGrids />
+                </div>
+              )
+            }
             {section.type === 'participants' && (
               <div>
                 <div className="section-content"> Участники </div>
@@ -441,7 +428,7 @@ function App() {
           </animated.section>
         )
       })}
-      
+     
     </div>
   )
 }
