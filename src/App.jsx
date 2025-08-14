@@ -9,7 +9,7 @@ import SphereScene from './SphereScene'
 import { Card, Row, Col, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/cards.css';
-import ParticlesBackground from "./ParticlesBg";
+import SectionWithParticles from "./ParticlesBg";
 
 const cardsData = [
   { text: 'Расчёт плановых нормативов потерь', link: '/gis' },
@@ -24,20 +24,35 @@ const cardsData = [
   { text: 'Электронное формирование документов', link: '/documents' },
   { text: 'Месторождения углеводородного сырья', link: '/oil' }
 ];
-function CardGrids() {
+
+
+function AnimatedCard({ children, delay, isVisible }) {
+  const animation = useSpring({
+    opacity: isVisible ? 1 : 0,
+    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+    config: { tension: 100, friction: 20 },
+    delay: isVisible ? delay : 0, // Apply delay only when appearing
+  });
+
+  return <animated.div style={animation}>{children}</animated.div>;
+}
+
+function CardGrids({ isVisible }) {
   return (
-      <div className='section-content'>
+    <div className='section-content'>
       <Container>
-  <div className="cards-row">
-    {cardsData.map((card, idx) => (
-      <a key={idx} href={card.link} className="card-link">
-        <Card className="custom-card">
-          <div>{card.text}</div>
-        </Card>
-      </a>
-    ))}
-  </div>
-</Container>
+        <div className="cards-row">
+          {cardsData.map((card, idx) => (
+            <AnimatedCard key={idx} delay={idx * 200} isVisible={isVisible}>
+              <a href={card.link} className="card-link">
+                <Card className="custom-card">
+                  <div>{card.text}</div>
+                </Card>
+              </a>
+            </AnimatedCard>
+          ))}
+        </div>
+      </Container>
     </div>
   );
 }
@@ -405,10 +420,12 @@ function App() {
           }
             {
               section.type === 'products' &&(
-                <div className='section-content'>
-                  <p>Мы предлагаем широкий спектр продуктов и решений для горнодобывающей отрасли</p>
-                  <CardGrids />
-                </div>
+                <SectionWithParticles>
+                  <div className='section-content'>
+                    <p>Мы предлагаем широкий спектр продуктов и решений для горнодобывающей отрасли</p>
+                    <CardGrids isVisible={isVisible} />
+                  </div>
+                </SectionWithParticles>
               )
             }
             {section.type === 'participants' && (
