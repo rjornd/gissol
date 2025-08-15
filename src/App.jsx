@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import './mdggisStyle.css'
-import pnipulogo from './assets/pinpulogo.png'
-import log1 from './assets/mdggis.jpg'
 import log2 from './assets/ukk.jpg'
 import log3 from './assets/eurohim.jpg'
 import { useSpring, animated } from '@react-spring/web';
@@ -12,17 +10,160 @@ import './assets/cards.css';
 import SectionWithParticles from "./ParticlesBg";
 
 const cardsData = [
-  { text: 'Расчёт плановых нормативов потерь', link: '/gis' },
-  { text: 'Модуль "3D-Рудник"', link: '/gis' },
-  { text: 'Комплексная ГИС для предприятия', link: '/gis' },
-  { text: 'Картографические материалы в цифровом виде', link: '/maps' },
-  { text: 'Разработка интеграций с современными ГИС', link: '/integration' },
-  { text: 'Автоматизация маркшейдерских работ', link: '/survey' },
-  { text: 'Автоматизация геофизических работ', link: '/geophysics' },
-  { text: 'Автоматизация геологических работ', link: '/geology' },
-  { text: 'Автоматизация горных работ', link: '/mining' },
-  { text: 'Электронное формирование документов', link: '/documents' },
-  { text: 'Месторождения углеводородного сырья', link: '/oil' }
+  {
+    text: 'Расчёт плановых нормативов потерь',
+    link: '/gissol/planloss',
+    works: [
+      'Анализ данных о потерях',
+      'Разработка моделей расчёта',
+      'Оптимизация процессов учёта потерь',
+    ],
+    benefits: [
+      'Снижение потерь ресурсов',
+      'Повышение точности расчётов',
+      'Улучшение контроля процессов',
+    ],
+  },
+  {
+    text: 'Модуль "3D-Рудник"',
+    link: '/gissol/',
+    works: [
+      'Создание 3D-моделей рудников',
+      'Визуализация данных',
+      'Интеграция с ГИС',
+    ],
+    benefits: [
+      'Улучшение планирования работ',
+      'Повышение безопасности',
+      'Оптимизация использования ресурсов',
+    ],
+  },
+  {
+    text: 'Комплексная ГИС для предприятия',
+    link: '/gis',
+    works: [
+      'Создание цифровых планов горных работ',
+      'Использование единой СУБД',
+      'Разработка программных приложений',
+    ],
+    benefits: [
+      'Повышение безопасности',
+      'Обеспечение электронного документооборота',
+      'Исключение ошибок',
+    ],
+  },
+  {
+    text: 'Картографические материалы в цифровом виде',
+    link: '/maps',
+    works: [
+      'Сканирование карт',
+      'Создание цифровых копий',
+      'Анализ данных',
+    ],
+    benefits: [
+      'Удобство использования',
+      'Сохранность данных',
+      'Доступность информации',
+    ],
+  },
+  {
+    text: 'Разработка интеграций с современными ГИС',
+    link: '/integration',
+    works: [
+      'Анализ требований',
+      'Разработка API',
+      'Тестирование интеграций',
+    ],
+    benefits: [
+      'Улучшение взаимодействия систем',
+      'Повышение эффективности',
+      'Снижение затрат',
+    ],
+  },
+  {
+    text: 'Автоматизация маркшейдерских работ',
+    link: '/survey',
+    works: [
+      'Сбор данных',
+      'Анализ информации',
+      'Создание отчётов',
+    ],
+    benefits: [
+      'Повышение точности',
+      'Снижение затрат',
+      'Ускорение процессов',
+    ],
+  },
+  {
+    text: 'Автоматизация геофизических работ',
+    link: '/geophysics',
+    works: [
+      'Сбор геофизических данных',
+      'Анализ информации',
+      'Создание моделей',
+    ],
+    benefits: [
+      'Улучшение качества данных',
+      'Снижение затрат',
+      'Повышение эффективности',
+    ],
+  },
+  {
+    text: 'Автоматизация геологических работ',
+    link: '/geology',
+    works: [
+      'Сбор геологических данных',
+      'Анализ информации',
+      'Создание отчётов',
+    ],
+    benefits: [
+      'Повышение точности',
+      'Снижение затрат',
+      'Ускорение процессов',
+    ],
+  },
+  {
+    text: 'Автоматизация горных работ',
+    link: '/mining',
+    works: [
+      'Сбор данных о горных работах',
+      'Анализ информации',
+      'Создание моделей',
+    ],
+    benefits: [
+      'Улучшение качества данных',
+      'Снижение затрат',
+      'Повышение эффективности',
+    ],
+  },
+  {
+    text: 'Электронное формирование документов',
+    link: '/documents',
+    works: [
+      'Сбор данных',
+      'Создание электронных документов',
+      'Анализ информации',
+    ],
+    benefits: [
+      'Удобство использования',
+      'Сохранность данных',
+      'Доступность информации',
+    ],
+  },
+  {
+    text: 'Месторождения углеводородного сырья',
+    link: '/oil',
+    works: [
+      'Сбор данных о месторождениях',
+      'Анализ информации',
+      'Создание моделей',
+    ],
+    benefits: [
+      'Улучшение качества данных',
+      'Снижение затрат',
+      'Повышение эффективности',
+    ],
+  },
 ];
 
 
@@ -37,14 +178,14 @@ function AnimatedCard({ children, delay, isVisible }) {
   return <animated.div style={animation}>{children}</animated.div>;
 }
 
-function CardGrids({ isVisible }) {
+function CardGrids({ isVisible, toggleProductSection }) {
   return (
     <div className='section-content'>
       <Container>
         <div className="cards-row">
           {cardsData.map((card, idx) => (
             <AnimatedCard key={idx} delay={idx * 200} isVisible={isVisible}>
-              <a href={card.link} className="card-link">
+              <a onClick={() => toggleProductSection(card)} className="card-link">
                 <Card className="custom-card">
                   <div>{card.text}</div>
                 </Card>
@@ -336,13 +477,44 @@ function CompanyLogoSection(){
   )
 }
 
-function ProductSection({ isVisible, onClose }) {
-  
+function ProductSection({ text, works, benefits, onBack }) {
   return (
-    
-      <div style={{topMargin: '20px', padding: '20px', background: '#f5f9fa', borderRadius: '12px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', display: isVisible ? 'block' : 'none'}}>
-       
-      <CardGrids  />
+    <div>
+      <button
+        onClick={onBack}>{"<-"}</button>
+      <div className='section-content'>
+        
+       <div className="container py-5">
+        <h3 className="section-title">{text}</h3>
+      <div className="row">
+        {/* Комплекс работ */}
+        <div className="col-md-6">
+          <h4 className="mb-4 fw-bold">КОМПЛЕКС РАБОТ</h4>
+          {works.map((work, index) => (
+            <div className="card mb-3 border-0 shadow-sm" style={{ backgroundColor: "#2C4876", color: "white" }} key={index}>
+              <div className="card-body">
+                <i className="bi bi-check-circle me-2"></i>
+                {work}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Преимущества внедрения */}
+        <div className="col-md-6">
+          <h4 className="mb-4 fw-bold">ПРЕИМУЩЕСТВА ВНЕДРЕНИЯ</h4>
+          {benefits.map((benefit, index) => (
+            <div className="card mb-3 border-0 shadow-sm" style={{ backgroundColor: "#F28C28", color: "white" }} key={index}>
+              <div className="card-body">
+                <i className="bi bi-check-circle me-2"></i>
+                {benefit}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+      </div>
       </div>
   );
 }
@@ -351,8 +523,20 @@ function App() {
   const sectionRefs = useRef([])
   const [visibleSections, setVisibleSections] = useState([])
   const [isProductSectionVisible, setProductSectionVisible] = useState(false);
- const toggleProductSection = () => {
-    setProductSectionVisible(!isProductSectionVisible);
+  const [productData, setProductData] = useState(null);
+
+  const toggleProductSection = (data) => {
+    setProductData(data);
+    setProductSectionVisible(true);
+    const productsSection = document.getElementById('products');
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'instant' });
+    }
+  };
+
+  const handleBack = () => {
+    setProductData(null);
+    setProductSectionVisible(false);
   };
 
   useEffect(() => {
@@ -369,12 +553,7 @@ function App() {
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  useEffect(() => {
-    if (!visibleSections[0] && isProductSectionVisible) {
-      setProductSectionVisible(false);
-    }
-  }, [visibleSections, isProductSectionVisible]);
+  
 
   return (
     <div>
@@ -391,7 +570,6 @@ function App() {
           background: section.bg ? section.bg : 'transparent',
         })
         return (
-          
           <animated.section
             key={idx+1}
             ref={el => sectionRefs.current[idx] = el}
@@ -414,16 +592,22 @@ function App() {
               <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
               <p>ООО "ГИС-Решения" - это команда профессионалов, которая занимается разработкой и внедрением горно-геологических информационных систем (ГГИС) для предприятий горнодобывающей отрасли.</p>
               <p>Мы создаем программные продукты, которые позволяют оптимизировать процессы добычи, повысить безопасность и эффективность работы.</p>
-              <button className='main-action-btn' onClick={toggleProductSection}>Продукты и решения</button>
             </div>
             </>)
           }
             {
-              section.type === 'products' &&(
+              section.type === 'products' && (
+                isProductSectionVisible ? 
+                <ProductSection
+                  text={productData.text}
+                  works={productData.works}
+                  benefits={productData.benefits}
+                  onBack={handleBack}
+                /> : 
                 <SectionWithParticles>
                   <div className='section-content'>
                     <p>Мы предлагаем широкий спектр продуктов и решений для горнодобывающей отрасли</p>
-                    <CardGrids isVisible={isVisible} />
+                    <CardGrids isVisible={isVisible} toggleProductSection={toggleProductSection}/>
                   </div>
                 </SectionWithParticles>
               )
