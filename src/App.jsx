@@ -3,13 +3,14 @@ import './mdggisStyle.css'
 import log2 from './assets/ukk.jpg'
 import log3 from './assets/eurohim.jpg'
 import { useSpring, animated } from '@react-spring/web';
-import SphereScene from './SphereScene'
+
 import { Card, Row, Col, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/cards.css';
 import SectionWithParticles from "./ParticlesBg";
 import mineimg from './assets/shahta.png'
 import mine2 from './assets/mine2.jpg'
+import logo from './assets/Logo.svg'
 const cardsData = [
   {
     text: 'Расчёт плановых нормативов потерь',
@@ -498,7 +499,7 @@ function CompanyLogoSection(){
         }}
       >
       
-      <SphereScene />
+      <img src={logo} style={{marginRight: '20px'}}></img>
       <div className='section-content' style={{color:"#f5f9faff", justifyContent: 'center', alignItems: 'center', minHeight: '100%', marginBottom: '0px'}}>
       
       <span style={{display: 'block' }} >{'ООО "ГИС РЕШЕНИЯ"'}</span>
