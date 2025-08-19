@@ -1,25 +1,40 @@
 {
-  "hash": "336a1acf",
+  "hash": "2de9607b",
   "configHash": "4c08b5b7",
-  "lockfileHash": "ba0df365",
-  "browserHash": "065ba951",
+  "lockfileHash": "a47a53a3",
+  "browserHash": "3b45da81",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "01158a0b",
+      "fileHash": "a229bc3b",
       "needsInterop": true
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "12599269",
+      "fileHash": "a5ec06fe",
       "needsInterop": true
+    },
+    "@react-spring/web": {
+      "src": "../../node_modules/@react-spring/web/dist/react-spring_web.modern.mjs",
+      "file": "@react-spring_web.js",
+      "fileHash": "b60b8dc3",
+      "needsInterop": false
+    },
+    "react-bootstrap": {
+      "src": "../../node_modules/react-bootstrap/esm/index.js",
+      "file": "react-bootstrap.js",
+      "fileHash": "35d68a3f",
+      "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-Y455YYDO": {
-      "file": "chunk-Y455YYDO.js"
+    "chunk-QOVZGY7A": {
+      "file": "chunk-QOVZGY7A.js"
+    },
+    "chunk-5WQJO2FO": {
+      "file": "chunk-5WQJO2FO.js"
     }
   }
 }
