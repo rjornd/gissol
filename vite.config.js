@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/gissol/', 
   plugins: [react()],
-  assetsInclude: ['**/*.docx']
+  assetsInclude: ['**/*.glb']
 })

@@ -1,13 +1,4 @@
-:root {
-  --primary: #01a7bd;
-  --primary-dark: #008ba3;
-  --primary-light: #23d7eb;
-  --background: #ffffff;
-  --background-alt: #f5f7fa;
-  --text-primary: #2c3e50;
-  --text-secondary: #546e7a;
-  --header-bg: rgba(44, 62, 80, 0.95);
-}
+
 /* Контейнер с фиксированным отступом между колонками */
 .cards-row {
   display: flex;

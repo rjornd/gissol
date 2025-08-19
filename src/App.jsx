@@ -8,7 +8,8 @@ import { Card, Row, Col, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/cards.css';
 import SectionWithParticles from "./ParticlesBg";
-
+import mineimg from './assets/shahta.png'
+import mine2 from './assets/mine2.jpg'
 const cardsData = [
   {
     text: 'Расчёт плановых нормативов потерь',
@@ -166,6 +167,37 @@ const cardsData = [
   },
 ];
 
+  
+function SectionWithBgImage({ children, image }) {
+  return (
+    <section
+      className="section relative overflow-hidden"
+      style={{ position: "relative" }}
+    >
+      {/* Фон с маской через ::before */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `linear-gradient(to bottom, rgba(27, 58, 95, 1) 0%, rgba(18, 42, 64, 0.8) 50%,rgba(27, 58, 95, 1) 100%), url(${image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%)",
+          WebkitMaskRepeat: "no-repeat",
+          WebkitMaskSize: "100% 100%",
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%)",
+          maskRepeat: "no-repeat",
+          maskSize: "100% 100%",
+        }}
+      />
+
+      {/* Контент поверх */}
+      <div style={{ position: "relative", zIndex: 1 }}>{children}</div>
+    </section>
+  );
+}
 
 function AnimatedCard({ children, delay, isVisible }) {
   const animation = useSpring({
@@ -251,7 +283,7 @@ const sections = [
   },
   {
     type: 'products',
-    title: 'Продукты и решения',
+    title: '',
     //image: pnipulogo,
     bg: 'bc-gradient',
   },
@@ -461,7 +493,7 @@ function CompanyLogoSection(){
           flexDirection: 'row', 
           alignItems: 'left', 
           justifyContent: 'center', 
-          background: 'linear-gradient(to bottom, #113f83ff, #7a0dacff)', /* Adjusted gradient to match palette */
+          //background: 'linear-gradient(to bottom, #113f83ff, #7a0dacff)', /* Adjusted gradient to match palette */
           padding: '20px'
         }}
       >
@@ -516,6 +548,28 @@ function ProductSection({ text, works, benefits, onBack }) {
     </div>
       </div>
       </div>
+  );
+}
+
+
+
+function AboutUsSection() {
+  return (
+    <SectionWithBgImage image={mineimg}> <div className="section-title">О Компании</div>
+      <div
+        className="section-content"
+      >
+        <p>
+          ООО "ГИС-Решения" - это команда профессионалов, которая занимается
+          разработкой и внедрением горно-геологических информационных систем
+          (ГГИС) для предприятий горнодобывающей отрасли.
+        </p>
+        <p>
+          Мы создаем программные продукты, которые позволяют оптимизировать
+          процессы добычи, повысить безопасность и эффективность работы.
+        </p>
+      </div> 
+      </SectionWithBgImage>
   );
 }
 
@@ -587,16 +641,12 @@ function App() {
             <div className="section-content">{section.content}</div>
             
             {section.type === 'header' && (
-              <>
-              <div className='section-title'>О Компании</div>
-              <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-              <p>ООО "ГИС-Решения" - это команда профессионалов, которая занимается разработкой и внедрением горно-геологических информационных систем (ГГИС) для предприятий горнодобывающей отрасли.</p>
-              <p>Мы создаем программные продукты, которые позволяют оптимизировать процессы добычи, повысить безопасность и эффективность работы.</p>
-            </div>
-            </>)
+             AboutUsSection())
           }
             {
               section.type === 'products' && (
+                <SectionWithBgImage image={mine2}>
+                  <div className='section-title'>Продукты и решения</div> {
                 isProductSectionVisible ? 
                 <ProductSection
                   text={productData.text}
@@ -609,7 +659,8 @@ function App() {
                     <p>Мы предлагаем широкий спектр продуктов и решений для горнодобывающей отрасли</p>
                     <CardGrids isVisible={isVisible} toggleProductSection={toggleProductSection}/>
                   </div>
-                </SectionWithParticles>
+                </SectionWithParticles> }
+                </SectionWithBgImage > 
               )
             }
             {section.type === 'participants' && (
