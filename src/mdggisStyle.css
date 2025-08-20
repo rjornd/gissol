@@ -7,7 +7,7 @@
   --background-alt: linear-gradient(0deg, rgba(27, 58, 95, 1) 0%, rgba(18, 42, 64, 0.8) 50%,rgba(27, 58, 95, 1) 100%); /* Steel gray */
   --text-primary: #ffffff; /* White */
   --text-secondary: #ADB8C3; /* Light gray */
-  --header-bg: linear-gradient(-90deg, #0aa39ba4 0%, #175197a2 80%); /* Distinct gradient for header */
+  --header-bg: linear-gradient(-90deg, rgba(40, 242, 181, 0.616) 0%, #175197a2 80%); /* Distinct gradient for header */
 }
 
 
@@ -204,7 +204,7 @@
   transition: all 0.3s ease;
 }
 .nav-link-class:hover {
-  background: rgba(255,255,255,0.15);
+  background: rgb(255, 255, 255);
   color: var(--primary-light);
 }
 

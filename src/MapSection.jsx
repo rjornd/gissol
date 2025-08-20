@@ -1,6 +1,7 @@
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useEffect, useRef } from "react";
+import mapstyle from "./assets/mapstyle.json"; // путь к вашему стилю карты
 function DarkMap() {
   const mapContainer = useRef(null);
   const mapInstance = useRef(null);
@@ -10,14 +11,14 @@ function DarkMap() {
 
     mapInstance.current = new maplibregl.Map({
       container: mapContainer.current,
-      style: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+      style: mapstyle,
       center: [56.233252, 58.015566],
       zoom: 15,
       attributionControl: false // <- убирает дефолтный блок
     });
-    
+  //  style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
     // Добавление метки
-    new maplibregl.Marker({ color: "#7ba9e6ff" }) // цвет метки, например Tomato
+    new maplibregl.Marker({ color: "#7ba9e6ff" }) 
       .setLngLat([56.233252, 58.015566])
       .addTo(mapInstance.current);
 
@@ -38,16 +39,26 @@ function DarkMap() {
   }, []);
 
   return (
-    <div
-      ref={mapContainer}
-      style={{ width: "100%", height: "400px", borderRadius: "12px" }}
-    />
+    <div style={{ position: "relative", width: "100%", height: "400px" }}>
+  <div
+    ref={mapContainer}
+    style={{ width: "100%", height: "100%", borderRadius: "12px" }}
+  />
+  <div
+    style={{
+      position: "absolute",
+      inset: 0,
+      borderRadius: "12px",
+      pointerEvents: "none",
+      background: "linear-gradient(0deg, #122A40 0%, #152F48 30%, #1B3A5F 70%, #122A40 100%)",
+      opacity: 0.15
+    }}
+  />
+</div>
   );
 }
 
-export default function MapSection({ mapSection }) {
-  if (!mapSection) return null;
-
+export default function MapSection() {
   return (
     <div
       style={{

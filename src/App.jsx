@@ -14,6 +14,7 @@ import mine3 from './assets/mine3.jpg?inline'
 import logo from './assets/Logo.svg'
 import MapSection from './MapSection';
 import cardsData from './cardsData.js';
+import NavigationDots from './NavigationDots.jsx';
 
 function AnimatedCard({ children, delay, isVisible }) {
   const animation = useSpring({
@@ -106,17 +107,9 @@ const sections = [
     bg: ''
   },
   {
-    type: 'location',
-    title: 'Наше местоположение',
-    content: '', 
-    bg: 'bc-gradient',
-    nav: "Местоположение",
-    mapSection: true, // специальный флаг для секции с картой
-  },
-  {
     type: 'contact',
     title: 'Контакты',
-    content: 'Свяжитесь с нами для получения дополнительной информации',
+    content: '',
     nav: "Контакты",
     bg: '',
   } 
@@ -207,20 +200,58 @@ function Header() {
 
 
 function Contacts() {
+  const [showCopied, setShowCopied] = useState(false);
+
+  const handleCopyPhone = () => {
+    navigator.clipboard.writeText('+7(3422)-799-654');
+    setShowCopied(true);
+    setTimeout(() => setShowCopied(false), 2000); // Hide the message after 2 seconds
+  };
+
   return (
-    <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+    <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', position: 'relative' }}>
+      <p>
+        Директор ООО "ГИС-Решения": Антон Вадимович Оверин
+      </p>
+      <p>
+        Свяжитесь с нами для получения дополнительной информации
+      </p>
       <p style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <i className="fas fa-envelope" style={{ fontSize: '1.5rem', color: '#444' }}></i>
-        <a href="mailto:gissolutions@ya.ru" style={{ color: '#444', textDecoration: 'none' }}>
+        <i className="fas fa-envelope" style={{ fontSize: '1.5rem', color: '#28f2b5ff' }}></i>
+        <a href="mailto:gissolutions@ya.ru" style={{ color: '#34be95ff', textDecoration: 'none' }}>
           gissolutions@ya.ru
         </a>
       </p>
-      <p>
-        cот.: +7(3422)-799-654
-      </p>
-        <p>
-        Директор ООО "ГИС-Решения": Антон Вадимович Оверин
-      </p>
+      <div style={{ position: 'relative' }}>
+        <p 
+          style={{ fontSize: '1.5rem', color: '#5bbee6ff', cursor: 'pointer' }}
+          onClick={handleCopyPhone}
+          title="Кликните, чтобы скопировать номер телефона"
+        >
+          тел.: +7(3422)-799-654
+        </p>
+        {showCopied && (
+          <animated.div
+            style={{
+              position: 'absolute',
+              top: '-50%',
+              left: '50%',
+              
+              transform: 'translate(-50%, -50%)',
+              backgroundColor: '#1B3A5F',
+              color: '#fff',
+              padding: '5px 10px',
+              borderRadius: '5px',
+              whiteSpace: 'nowrap',
+              zIndex: 1002,
+              pointerEvents: 'none', // Prevent interaction with the tooltip
+            }}
+          >
+            Телефон скопирован!
+          </animated.div>
+        )}
+      </div>
+      <MapSection/>
     </div>
   )
 }
@@ -334,6 +365,9 @@ function AboutUsSection() {
           Мы создаем программные продукты, которые позволяют оптимизировать
           процессы добычи, повысить безопасность и эффективность работы.
         </p>
+        <p>
+          Мы являемся партнером кафедры Маркшейдерское дело, геодезия и геоинформационные системы Пермского Политеха.
+        </p>
       </div> 
       </SectionWithBgImage>
   );
@@ -341,7 +375,7 @@ function AboutUsSection() {
 
 function Products({ isProductSectionVisible, handleBack, productData, isVisible, toggleProductSection }) {
   return (
-    <SectionWithBgImage image={mine2}>
+    <SectionWithBgImage image={mine3}>
     <div className='section-title'>Продукты и решения</div> 
     {
       isProductSectionVisible ? 
@@ -362,83 +396,7 @@ function Products({ isProductSectionVisible, handleBack, productData, isVisible,
   )
 }
 
-function NavigationDots({ sections, visibleSections }) {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const handleScrollToSection = (index) => {
-    const sectionElement = document.getElementById(sections[index].type);
-    if (sectionElement) {
-      sectionElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        right: '20px',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
-        zIndex: 1000, // Ensures dots are above background
-      }}
-    >
-      {sections.map((section, index) => {
-        const isActive = visibleSections[index];
-        const spring = useSpring({
-          scale: hoveredIndex === index || isActive ? 1.5 : 1,
-          opacity: hoveredIndex === index || isActive ? 1 : 0.8,
-          backgroundColor: isActive ? '#28f2b5ff' : '#4FA3C3',
-          config: { tension: 220, friction: 15 },
-        });
-
-        const tooltipSpring = useSpring({
-          opacity: hoveredIndex === index ? 1 : 0,
-          config: { tension: 220, friction: 15 },
-        });
-
-        return (
-          <div key={index} style={{ position: 'relative' }}>
-            <animated.div
-              style={{
-                ...spring,
-                width: '12px',
-                height: '12px',
-                borderRadius: '50%',
-                cursor: 'pointer',
-                zIndex: 1001, // Ensures individual dots are above other elements
-              }}
-              onClick={() => handleScrollToSection(index)}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            />
-            {hoveredIndex === index && (
-              <animated.div
-                style={{
-                  ...tooltipSpring,
-                  position: 'absolute',
-                  right: '30px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  backgroundColor: '#1B3A5F',
-                  color: '#fff',
-                  padding: '5px 10px',
-                  borderRadius: '5px',
-                  whiteSpace: 'nowrap',
-                  zIndex: 1002, // Ensures tooltip is above everything
-                }}
-              >
-                {section.nav}
-              </animated.div>
-            )}
-          </div>
-        )
-      })}
-    </div>
-  );
-}
 
 function App() {
   const sectionRefs = useRef([])
@@ -513,7 +471,7 @@ function App() {
             {section.type === 'products' && <Products isProductSectionVisible={isProductSectionVisible} handleBack={handleBack} productData={productData} isVisible={isVisible} toggleProductSection={toggleProductSection}/>}
 
             {section.type === 'achivments' && (
-            <SectionWithBgImage image={mine3}>
+            <SectionWithBgImage image={mine2}>
               <div className="section-title">Наши достижения</div>
               <div className="section-content" style={{ textAlign: 'justify' }}>
                 Выполненный нашей командой проект "Создание и внедрение горно-геологической информационной системы (ГГИС) на рудниках ПАО "Уралкалий" (цифровой двойник рудника)" стал лучшим ИТ-проектом России и стран СНГ (категория — «Лучшее отраслевое решение, номинация — «Металлургия и непрерывное производство») по версии профессионального сообщества лидеров цифровой трансформации GlobalCIO|DigitalExperts. <br/><br/>
@@ -533,8 +491,6 @@ function App() {
               </div>
             )}
 
-            {section.type === 'location' &&  <MapSection mapSection={section} />}
-            
             {section.type === 'registration' && <Registration />}
             
             {section.type === 'contact' &&  <Contacts />}
