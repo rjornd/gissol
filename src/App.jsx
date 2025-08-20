@@ -8,167 +8,43 @@ import { Card, Row, Col, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/cards.css';
 import SectionWithParticles from "./ParticlesBg";
-import mineimg from './assets/shahta.png'
-import mine2 from './assets/mine2.jpg'
+import mineimg from './assets/shahta.png?inline'
+import mine2 from './assets/mine2.jpg?inline'
+import mine3 from './assets/mine3.jpg?inline'
 import logo from './assets/Logo.svg'
+import MapSection from './MapSection';
+import cardsData from './cardsData.js';
 
-const cardsData = [
-  {
-    text: 'Расчёт плановых нормативов потерь',
-    link: '/gissol/planloss',
-    works: [
-      'Анализ данных о потерях',
-      'Разработка моделей расчёта',
-      'Оптимизация процессов учёта потерь',
-    ],
-    benefits: [
-      'Снижение потерь ресурсов',
-      'Повышение точности расчётов',
-      'Улучшение контроля процессов',
-    ],
-  },
-  {
-    text: 'Модуль "3D-Рудник"',
-    link: '/gissol/',
-    works: [
-      'Создание 3D-моделей рудников',
-      'Визуализация данных',
-      'Интеграция с ГИС',
-    ],
-    benefits: [
-      'Улучшение планирования работ',
-      'Повышение безопасности',
-      'Оптимизация использования ресурсов',
-    ],
-  },
-  {
-    text: 'Комплексная ГИС для предприятия',
-    link: '/gis',
-    works: [
-      'Создание цифровых планов горных работ',
-      'Использование единой СУБД',
-      'Разработка программных приложений',
-    ],
-    benefits: [
-      'Повышение безопасности',
-      'Обеспечение электронного документооборота',
-      'Исключение ошибок',
-    ],
-  },
-  {
-    text: 'Картографические материалы в цифровом виде',
-    link: '/maps',
-    works: [
-      'Сканирование карт',
-      'Создание цифровых копий',
-      'Анализ данных',
-    ],
-    benefits: [
-      'Удобство использования',
-      'Сохранность данных',
-      'Доступность информации',
-    ],
-  },
-  {
-    text: 'Разработка интеграций с современными ГИС',
-    link: '/integration',
-    works: [
-      'Анализ требований',
-      'Разработка API',
-      'Тестирование интеграций',
-    ],
-    benefits: [
-      'Улучшение взаимодействия систем',
-      'Повышение эффективности',
-      'Снижение затрат',
-    ],
-  },
-  {
-    text: 'Автоматизация маркшейдерских работ',
-    link: '/survey',
-    works: [
-      'Сбор данных',
-      'Анализ информации',
-      'Создание отчётов',
-    ],
-    benefits: [
-      'Повышение точности',
-      'Снижение затрат',
-      'Ускорение процессов',
-    ],
-  },
-  {
-    text: 'Автоматизация геофизических работ',
-    link: '/geophysics',
-    works: [
-      'Сбор геофизических данных',
-      'Анализ информации',
-      'Создание моделей',
-    ],
-    benefits: [
-      'Улучшение качества данных',
-      'Снижение затрат',
-      'Повышение эффективности',
-    ],
-  },
-  {
-    text: 'Автоматизация геологических работ',
-    link: '/geology',
-    works: [
-      'Сбор геологических данных',
-      'Анализ информации',
-      'Создание отчётов',
-    ],
-    benefits: [
-      'Повышение точности',
-      'Снижение затрат',
-      'Ускорение процессов',
-    ],
-  },
-  {
-    text: 'Автоматизация горных работ',
-    link: '/mining',
-    works: [
-      'Сбор данных о горных работах',
-      'Анализ информации',
-      'Создание моделей',
-    ],
-    benefits: [
-      'Улучшение качества данных',
-      'Снижение затрат',
-      'Повышение эффективности',
-    ],
-  },
-  {
-    text: 'Электронное формирование документов',
-    link: '/documents',
-    works: [
-      'Сбор данных',
-      'Создание электронных документов',
-      'Анализ информации',
-    ],
-    benefits: [
-      'Удобство использования',
-      'Сохранность данных',
-      'Доступность информации',
-    ],
-  },
-  {
-    text: 'Месторождения углеводородного сырья',
-    link: '/oil',
-    works: [
-      'Сбор данных о месторождениях',
-      'Анализ информации',
-      'Создание моделей',
-    ],
-    benefits: [
-      'Улучшение качества данных',
-      'Снижение затрат',
-      'Повышение эффективности',
-    ],
-  },
-];
+function AnimatedCard({ children, delay, isVisible }) {
+  const animation = useSpring({
+    opacity: isVisible ? 1 : 0,
+    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+    config: { tension: 100, friction: 20 },
+    delay: isVisible ? delay : 0, // Apply delay only when appearing
+  });
 
+  return <animated.div style={animation}>{children}</animated.div>;
+}
+
+function CardGrids({ isVisible, toggleProductSection }) {
+  return (
+    <div className='section-content'>
+      <Container>
+        <div className="cards-row">
+          {cardsData.map((card, idx) => (
+            <AnimatedCard key={idx} delay={idx * 200} isVisible={isVisible}>
+              <a onClick={() => toggleProductSection(card)} className="card-link">
+                <Card className="custom-card">
+                  <div>{card.text}</div>
+                </Card>
+              </a>
+            </AnimatedCard>
+          ))}
+        </div>
+      </Container>
+    </div>
+  );
+}
   
 function SectionWithBgImage({ children, image }) {
   return (
@@ -201,75 +77,6 @@ function SectionWithBgImage({ children, image }) {
   );
 }
 
-function AnimatedCard({ children, delay, isVisible }) {
-  const animation = useSpring({
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-    config: { tension: 100, friction: 20 },
-    delay: isVisible ? delay : 0, // Apply delay only when appearing
-  });
-
-  return <animated.div style={animation}>{children}</animated.div>;
-}
-
-function CardGrids({ isVisible, toggleProductSection }) {
-  return (
-    <div className='section-content'>
-      <Container>
-        <div className="cards-row">
-          {cardsData.map((card, idx) => (
-            <AnimatedCard key={idx} delay={idx * 200} isVisible={isVisible}>
-              <a onClick={() => toggleProductSection(card)} className="card-link">
-                <Card className="custom-card">
-                  <div>{card.text}</div>
-                </Card>
-              </a>
-            </AnimatedCard>
-          ))}
-        </div>
-      </Container>
-    </div>
-  );
-}
-
-
-function YandexMap() {
-  const mapRef = useRef(null);
-
-  useEffect(() => {
-    // Prevent duplicate script injection
-    if (!window.ymaps) {
-      const script = document.createElement('script');
-      script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
-      script.async = true;
-      document.body.appendChild(script);
-      script.onload = initMap;
-      return () => {
-        document.body.removeChild(script);
-      };
-    } else {
-      initMap();
-    }
-
-    function initMap() {
-      window.ymaps.ready(() => {
-        // Remove previous map instance if exists
-        if (mapRef.current && mapRef.current.innerHTML) {
-          mapRef.current.innerHTML = '';
-        }
-        new window.ymaps.Map(mapRef.current, {
-          center: [58.015566, 56.233252],
-          zoom: 17,
-        });
-      });
-    }
-  }, []);
-
-  return (
-    <div ref={mapRef} style={{ width: '100%', height: '400px', borderRadius: '12px' }}></div>
-  );
-}
-
 
 //  <p> Наши клиенты </p>
 //           <ImageGallery
@@ -291,14 +98,8 @@ const sections = [
   },
   {
     type: 'achivments',
-    title: 'Наши достижения',
-    content: (
-      <div style={{ textAlign: 'justify' }}>
-        Выполненный нашей командой проект "Создание и внедрение горно-геологической информационной системы (ГГИС) на рудниках ПАО "Уралкалий" (цифровой двойник рудника)" стал лучшим ИТ-проектом России и стран СНГ (категория — «Лучшее отраслевое решение, номинация — «Металлургия и непрерывное производство») по версии профессионального сообщества лидеров цифровой трансформации GlobalCIO|DigitalExperts. <br/><br/>
-        Всего в конкурсе участвовало 193 ИТ-проекта. <a href="https://www.uralkali.com/ru/press_center/company_news/item42943/" target="_blank" rel="noopener noreferrer">Ссылка на сайт</a>. <br/><br/>
-        Проект выполнялся по заказу компании ПАО "Уралкалий" и на начало июня 2020 года с различными модулями ГГИС в онлайн-режиме работают более 300 специалистов «Уралкалия» — горняки, геологи, маркшейдеры, геомеханики, а также эксперты АО «ВНИИ Галургии» и Горного института Уральского отделения РАН.
-      </div>
-    ),
+    title: '',
+    content: "",
     bg: ''
   },
   {
@@ -399,52 +200,10 @@ function Header() {
   )
 }
 
-function MapSection(section) {
-  return section.mapSection ? (
-    (
-      <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '80%',
-      maxWidth: '900px'}}>
-      <div 
-       className="section-content" style={{ textAlign: 'center'}}
-      > Российская Федерация, г. Пермь, ул. Монастырская, д. 12, офис 104</div>
-    
-  <div
-    style={{
-      position: 'relative',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      zIndex: 2,
-      cursor: 'grab',
-      background: 'transparent',
-    }}
-    tabIndex={0}
-    aria-label="Для взаимодействия с картой кликните"
-    onClick={e => {
-      e.currentTarget.style.pointerEvents = 'none';
-    }}
-    onKeyDown={e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.currentTarget.style.pointerEvents = 'none';
-      }
-    }}
-  />
-  <YandexMap />
-      </div>
-  )) : null
-  
-}
 
 function Contacts() {
   return (
     <div className="section-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-      {/* <p style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <i className="fab fa-telegram" style={{ fontSize: '1.5rem', color: '#0088cc' }}></i>
-        <a href="https://t.me/gartchiza90" target="_blank" rel="noopener noreferrer" style={{ color: '#0088cc', textDecoration: 'none' }}>
-          @gartchiza90
-        </a>
-      </p> */}
       <p style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <i className="fas fa-envelope" style={{ fontSize: '1.5rem', color: '#444' }}></i>
         <a href="mailto:gissolutions@ya.ru" style={{ color: '#444', textDecoration: 'none' }}>
@@ -575,6 +334,29 @@ function AboutUsSection() {
   );
 }
 
+function Products({ isProductSectionVisible, handleBack, productData, isVisible, toggleProductSection }) {
+  return (
+    <SectionWithBgImage image={mine2}>
+    <div className='section-title'>Продукты и решения</div> 
+    {
+      isProductSectionVisible ? 
+      <ProductSection
+        text={productData.text}
+        works={productData.works}
+        benefits={productData.benefits}
+        onBack={handleBack}
+      /> : 
+      <SectionWithParticles>
+        <div className='section-content'>
+          <p>Мы предлагаем широкий спектр продуктов и решений для горнодобывающей отрасли</p>
+          <CardGrids isVisible={isVisible} toggleProductSection={toggleProductSection}/>
+        </div>
+      </SectionWithParticles> 
+    }
+    </SectionWithBgImage> 
+  )
+}
+
 function App() {
   const sectionRefs = useRef([])
   const [visibleSections, setVisibleSections] = useState([])
@@ -642,29 +424,22 @@ function App() {
             <div className="section-title">{section.title}</div>
             <div className="section-content">{section.content}</div>
             
-            {section.type === 'header' && (
-             AboutUsSection())
-          }
-            {
-              section.type === 'products' && (
-                <SectionWithBgImage image={mine2}>
-                  <div className='section-title'>Продукты и решения</div> {
-                isProductSectionVisible ? 
-                <ProductSection
-                  text={productData.text}
-                  works={productData.works}
-                  benefits={productData.benefits}
-                  onBack={handleBack}
-                /> : 
-                <SectionWithParticles>
-                  <div className='section-content'>
-                    <p>Мы предлагаем широкий спектр продуктов и решений для горнодобывающей отрасли</p>
-                    <CardGrids isVisible={isVisible} toggleProductSection={toggleProductSection}/>
-                  </div>
-                </SectionWithParticles> }
-                </SectionWithBgImage > 
-              )
+            {section.type === 'header' && <AboutUsSection/>}
+            
+            {section.type === 'products' && <Products isProductSectionVisible={isProductSectionVisible} handleBack={handleBack} productData={productData} isVisible={isVisible} toggleProductSection={toggleProductSection}/>}
+
+            {section.type === 'achivments' && (
+            <SectionWithBgImage image={mine3}>
+              <div className="section-title">Наши достижения</div>
+              <div className="section-content" style={{ textAlign: 'justify' }}>
+                Выполненный нашей командой проект "Создание и внедрение горно-геологической информационной системы (ГГИС) на рудниках ПАО "Уралкалий" (цифровой двойник рудника)" стал лучшим ИТ-проектом России и стран СНГ (категория — «Лучшее отраслевое решение, номинация — «Металлургия и непрерывное производство») по версии профессионального сообщества лидеров цифровой трансформации GlobalCIO|DigitalExperts. <br/><br/>
+                Всего в конкурсе участвовало 193 ИТ-проекта. <a href="https://www.uralkali.com/ru/press_center/company_news/item42943/" target="_blank" rel="noopener noreferrer">Ссылка на сайт</a>. <br/><br/>
+                Проект выполнялся по заказу компании ПАО "Уралкалий" и на начало июня 2020 года с различными модулями ГГИС в онлайн-режиме работают более 300 специалистов «Уралкалия» — горняки, геологи, маркшейдеры, геомеханики, а также эксперты АО «ВНИИ Галургии» и Горного института Уральского отделения РАН.
+              </div>
+            </SectionWithBgImage>
+            )
             }
+
             {section.type === 'participants' && (
               <div>
                 <div className="section-content"> Участники </div>
@@ -674,7 +449,7 @@ function App() {
               </div>
             )}
 
-            {section.type === 'location' && (MapSection(section))}
+            {section.type === 'location' &&  <MapSection mapSection={section} />}
             
             {section.type === 'registration' && <Registration />}
             
@@ -687,4 +462,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

@@ -220,7 +220,7 @@ body {
   scroll-snap-type: y mandatory;
   background: linear-gradient(
   0deg,
-  #122A40 0%,
+  #1a3d5e 0%,
   #152F48 30%,
   #1B3A5F 70%,
   #122A40 100%
@@ -243,7 +243,6 @@ body::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: var(--background);
 }
 
 @media (min-width: 1024px) {
