@@ -1,17 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
-export default function SectionWithParticles({ children }) {
+export default function SectionWithParticles({ children, id }) {
+  const canvasRef = useRef(null);
+
   useEffect(() => {
-    const canvas = document.getElementById('particles-bg');
-    const ctx = canvas.getContext('2d');
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
 
     let particles = [];
-    const colors = ['#01a7bd', '#23d7eb', '#008ba3'];
+    const colors = ["#01a7bd", "#23d7eb", "#008ba3"];
     const maxDistance = 150; // максимальное расстояние для соединения линиями
     const particleCount = Math.floor(window.innerWidth / 10); // фиксированное количество частиц
 
-    let canvasWidth = window.innerWidth/2;
-    let canvasHeight = window.innerHeight/2;
+    let canvasWidth = window.innerWidth;
+    let canvasHeight = window.innerHeight;
 
     function resizeCanvas() {
       canvasWidth = window.innerWidth;
@@ -20,21 +22,20 @@ export default function SectionWithParticles({ children }) {
       canvas.height = canvasHeight;
     }
 
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
     function createParticles() {
-      if (particles.length === 0) {
-        for (let i = 0; i < particleCount; i++) {
-          particles.push({
-            x: Math.random() * canvasWidth,
-            y: Math.random() * canvasHeight,
-            radius: Math.random() * 3 + 1,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            speedX: (Math.random() - 0.5) * 0.5,
-            speedY: (Math.random() - 0.5) * 0.5
-          });
-        }
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvasWidth,
+          y: Math.random() * canvasHeight,
+          radius: Math.random() * 3 + 1,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedX: (Math.random() - 0.5) * 0.5,
+          speedY: (Math.random() - 0.5) * 0.5,
+        });
       }
     }
 
@@ -42,7 +43,7 @@ export default function SectionWithParticles({ children }) {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
       // точки
-      particles.forEach(p => {
+      particles.forEach((p) => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
@@ -69,7 +70,7 @@ export default function SectionWithParticles({ children }) {
     }
 
     function updateParticles() {
-      particles.forEach(p => {
+      particles.forEach((p) => {
         p.x += p.speedX;
         p.y += p.speedY;
 
@@ -88,16 +89,18 @@ export default function SectionWithParticles({ children }) {
     animate();
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener("resize", resizeCanvas);
     };
   }, []);
 
   return (
     <div style={{ position: "relative", overflow: "hidden" }}>
-      <canvas id="particles-bg" style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}></canvas>
-      <div style={{ position: "relative", zIndex: 1 }}>
-        {children}
-      </div>
+      <canvas
+        ref={canvasRef}
+        id={`particles-bg-${id}`}
+        style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}
+      ></canvas>
+      <div style={{ position: "relative", zIndex: 1 }}>{children}</div>
     </div>
   );
 }

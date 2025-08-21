@@ -11,9 +11,11 @@ import SectionWithParticles from "./ParticlesBg";
 import mineimg from './assets/shahta.png?inline'
 import mine2 from './assets/mine2.jpg?inline'
 import mine3 from './assets/mine3.jpg?inline'
+import mine4 from './assets/mine4.jpg?inline'
 import logo from './assets/Logo.svg'
 import MapSection from './MapSection';
-import cardsData from './cardsData.js';
+import {cardsData, productsCardsData} from './cardsData.js';
+
 import NavigationDots from './NavigationDots.jsx';
 
 function AnimatedCard({ children, delay, isVisible }) {
@@ -27,14 +29,14 @@ function AnimatedCard({ children, delay, isVisible }) {
   return <animated.div style={animation}>{children}</animated.div>;
 }
 
-function CardGrids({ isVisible, toggleProductSection }) {
+function CardGrids({ isVisible, toggleSection, cardsData }) {
   return (
     <div className='section-content'>
       <Container>
-        <div className="cards-row">
+        <div className="cards-grid">
           {cardsData.map((card, idx) => (
             <AnimatedCard key={idx} delay={idx * 200} isVisible={isVisible}>
-              <a onClick={() => toggleProductSection(card)} className="card-link">
+              <a onClick={() => toggleSection(card)} className="card-link">
                 <Card className="custom-card">
                   <div>{card.text}</div>
                 </Card>
@@ -93,9 +95,16 @@ const sections = [
     bg: '',
   },
   {
+    type: 'solutions',
+    title: '',
+    nav: "Комплексные решения",
+    //image: pnipulogo,
+    bg: 'bc-gradient',
+  },
+  {
     type: 'products',
     title: '',
-    nav: "Продукты и решения",
+    nav: "Продукты",
     //image: pnipulogo,
     bg: 'bc-gradient',
   },
@@ -306,7 +315,7 @@ function CompanyLogoSection(){
   )
 }
 
-function ProductSection({ text, works, benefits, onBack }) {
+function SolutionSection({ text, works, benefits, onBack }) {
   return (
     <div>
       <button
@@ -373,22 +382,45 @@ function AboutUsSection() {
   );
 }
 
-function Products({ isProductSectionVisible, handleBack, productData, isVisible, toggleProductSection }) {
+function Solutions({ isSolSectionVisible, handleBack, solutionData, isVisible, toggleSolSection }) {
   return (
     <SectionWithBgImage image={mine3}>
-    <div className='section-title'>Продукты и решения</div> 
+    <div className='section-title'>Комплексные решения</div> 
+    {
+      isSolSectionVisible ? 
+      <SolutionSection
+        text={solutionData.text}
+        works={solutionData.works}
+        benefits={solutionData.benefits}
+        onBack={handleBack}
+      /> : 
+      <SectionWithParticles>
+        <div className='section-content' >
+          <p>Мы предлагаем широкий спектр комплексных решений для горнодобывающей отрасли</p>
+          <CardGrids cardsData={cardsData} isVisible={isVisible} toggleSection={toggleSolSection}/>
+        </div>
+      </SectionWithParticles> 
+    }
+    </SectionWithBgImage> 
+  )
+}
+
+function Products({ isProductSectionVisible, handleBack, productData, isVisible, toggleProdSection }) {
+  return (
+    <SectionWithBgImage image={mine4}>
+    <div className='section-title'>Продукты</div> 
     {
       isProductSectionVisible ? 
-      <ProductSection
+      <SolutionSection
         text={productData.text}
         works={productData.works}
         benefits={productData.benefits}
         onBack={handleBack}
       /> : 
       <SectionWithParticles>
-        <div className='section-content'>
-          <p>Мы предлагаем широкий спектр продуктов и решений для горнодобывающей отрасли</p>
-          <CardGrids isVisible={isVisible} toggleProductSection={toggleProductSection}/>
+        <div className='section-content' >
+          <p>Мы предлагаем коробочные продукты для горнодобывающей отрасли</p>
+          <CardGrids cardsData={productsCardsData} isVisible={isVisible} toggleSection={toggleProdSection}/>
         </div>
       </SectionWithParticles> 
     }
@@ -401,21 +433,34 @@ function Products({ isProductSectionVisible, handleBack, productData, isVisible,
 function App() {
   const sectionRefs = useRef([])
   const [visibleSections, setVisibleSections] = useState([])
-  const [isProductSectionVisible, setProductSectionVisible] = useState(false);
+  const [isSolSectionVisible, setSolSectionVisible] = useState(false);
+  const [solutionData, setSolutionData] = useState(null);
   const [productData, setProductData] = useState(null);
 
-  const toggleProductSection = (data) => {
+  const [isProductSectionVisible, setProductSectionVisible] = useState(false);
+  const toggleProdSection = (data) => {
     setProductData(data);
     setProductSectionVisible(true);
-    const productsSection = document.getElementById('products');
-    if (productsSection) {
-      productsSection.scrollIntoView({ behavior: 'instant' });
+    const prodSection = document.getElementById('products');
+    if (prodSection) {
+      prodSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  const handleBack = () => {
+  const toggleSolSection = (data) => {
+    setSolutionData(data);
+    setSolSectionVisible(true);
+    const solSection = document.getElementById('solutions');
+    if (solSection) {
+      solSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  const handleProdBack = () => {
     setProductData(null);
     setProductSectionVisible(false);
+  };
+  const handleBack = () => {
+    setSolutionData(null);
+    setSolSectionVisible(false);
   };
 
   useEffect(() => {
@@ -468,8 +513,8 @@ function App() {
             
             {section.type === 'header' && <AboutUsSection/>}
             
-            {section.type === 'products' && <Products isProductSectionVisible={isProductSectionVisible} handleBack={handleBack} productData={productData} isVisible={isVisible} toggleProductSection={toggleProductSection}/>}
-
+            {section.type === 'solutions' && <Solutions isSolSectionVisible={isSolSectionVisible} handleBack={handleBack} solutionData={solutionData} isVisible={isVisible} toggleSolSection={toggleSolSection}/>}
+            {section.type === 'products' && <Products isProductSectionVisible={isProductSectionVisible} handleBack={handleProdBack} productData={productData} isVisible={isVisible} toggleProdSection={toggleProdSection}/>}
             {section.type === 'achivments' && (
             <SectionWithBgImage image={mine2}>
               <div className="section-title">Наши достижения</div>
@@ -497,7 +542,6 @@ function App() {
           </animated.section>
         )
       })}
-     
     </div>
   )
 }
