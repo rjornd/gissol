@@ -316,44 +316,59 @@ function CompanyLogoSection(){
 }
 
 function SolutionSection({ text, works, benefits, onBack }) {
+  const maxRows = Math.max(works.length, benefits.length); // Determine the maximum number of rows
   return (
     <div>
-      <button
-        onClick={onBack}>{"<-"}</button>
-      <div className='section-content'>
-        
-       <div className="container py-5">
-        <h3 className="section-title">{text}</h3>
-      <div className="row">
-        {/* Комплекс работ */}
-        <div className="col-md-6">
-          <h4 className="mb-4 fw-bold">КОМПЛЕКС РАБОТ</h4>
-          {works.map((work, index) => (
-            <div className="card mb-3 border-0 shadow-sm" style={{ backgroundColor: "#2C4876", color: "white" }} key={index}>
-              <div className="card-body">
-                <i className="bi bi-check-circle me-2"></i>
-                {work}
-              </div>
-            </div>
-          ))}
-        </div>
+      <button onClick={onBack}>{"<-"}</button>
+      <div className="section-content">
+        <div className="container py-5">
+          <h3 className="section-title">{text}</h3>
+          <div className="row">
+            {Array.from({ length: maxRows }).map((_, index) => (
+              <div className="d-flex mb-3" key={index}>
+                {/* Left column: Work */}
+                <div className="col-md-6">
+                  {works[index] && (
+                    <div
+                      className="card mb-3 border-0 shadow-sm"
+                      style={{
+                        backgroundColor: "rgba(44, 62, 80, 0.829)",
+                        boxShadow: "0 8px 20px rgba(0, 0, 0, 0.15)",
+                        color: "white",
+                      }}
+                    >
+                      <div className="card-body">
+                        <i className="bi bi-check-circle me-2"></i>
+                        {works[index]}
+                      </div>
+                    </div>
+                  )}
+                </div>
 
-        {/* Преимущества внедрения */}
-        <div className="col-md-6">
-          <h4 className="mb-4 fw-bold">ПРЕИМУЩЕСТВА ВНЕДРЕНИЯ</h4>
-          {benefits.map((benefit, index) => (
-            <div className="card mb-3 border-0 shadow-sm" style={{ backgroundColor: "#F28C28", color: "white" }} key={index}>
-              <div className="card-body">
-                <i className="bi bi-check-circle me-2"></i>
-                {benefit}
+                {/* Right column: Benefit */}
+                <div className="col-md-6">
+                  {benefits[index] && (
+                    <div
+                      className="card mb-3 border-0 shadow-sm"
+                      style={{
+                        backgroundColor: "rgba(44, 62, 80, 0.829)",
+                        boxShadow: "0 8px 20px rgba(0, 0, 0, 0.15)",
+                        color: "white",
+                      }}
+                    >
+                      <div className="card-body">
+                        <i className="bi bi-check-circle me-2"></i>
+                        {benefits[index]}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
-      </div>
-      </div>
   );
 }
 
