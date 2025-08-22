@@ -59,7 +59,7 @@
 
 
 .modal-content {
-  background-color: transparent;
+  background-color: transparent !important;
   border: none;
   box-shadow: none;
   backdrop-filter: blur(10px);
