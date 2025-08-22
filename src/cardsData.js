@@ -1,3 +1,6 @@
+import prog1 from "./assets/abcd.jpg?inline"
+import prog2 from "./assets/abce.jpg?inline"
+
 const cardsData = [
   {
     text: 'Комплексная ГИС для предприятия',
@@ -141,6 +144,9 @@ const productsCardsData = [
       'Повышение точности расчётов',
       'Улучшение контроля процессов',
     ],
+    images: [
+      prog1
+    ]
   },
   {
     text: 'Модуль "3D-Рудник"',
@@ -155,6 +161,12 @@ const productsCardsData = [
       'Повышение безопасности',
       'Оптимизация использования ресурсов',
     ],
+    images: [
+      prog2
+    ],
+    captions: [
+      "Модуль '3D Рудник'"
+    ]
   },
 ]
 

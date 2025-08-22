@@ -1,23 +1,25 @@
 import React, { useEffect, useRef } from "react";
 
-export default function SectionWithParticles({ children, id }) {
+export default function SectionWithParticles({ children, id, height }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
+    const parentElement = canvas.parentElement;
 
     let particles = [];
     const colors = ["#01a7bd", "#23d7eb", "#008ba3"];
     const maxDistance = 150; // максимальное расстояние для соединения линиями
-    const particleCount = Math.floor(window.innerWidth / 10); // фиксированное количество частиц
+    var particleCount = 24; // фиксированное количество частиц
 
-    let canvasWidth = window.innerWidth;
-    let canvasHeight = window.innerHeight;
+    let canvasWidth = parentElement.offsetWidth;
+    let canvasHeight = parentElement.offsetHeight;
 
     function resizeCanvas() {
-      canvasWidth = window.innerWidth;
-      canvasHeight = window.innerHeight;
+      canvasWidth = parentElement.offsetWidth;
+      canvasHeight = parentElement.offsetHeight;
+      particleCount = canvasHeight/26
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
     }
@@ -98,7 +100,7 @@ export default function SectionWithParticles({ children, id }) {
       <canvas
         ref={canvasRef}
         id={`particles-bg-${id}`}
-        style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}
+        style={{ position: "absolute", top: '5%', left: 0, zIndex: 0 }}
       ></canvas>
       <div style={{ position: "relative", zIndex: 1 }}>{children}</div>
     </div>

@@ -4,7 +4,7 @@ import log2 from './assets/ukk.jpg'
 import log3 from './assets/eurohim.jpg'
 import { useSpring, animated } from '@react-spring/web';
 
-import { Card, Row, Col, Container } from 'react-bootstrap';
+import { Card, Row, Col, Container, Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/cards.css';
 import SectionWithParticles from "./ParticlesBg";
@@ -17,6 +17,8 @@ import MapSection from './MapSection';
 import {cardsData, productsCardsData} from './cardsData.js';
 
 import NavigationDots from './NavigationDots.jsx';
+import prog1 from "./assets/abcd.jpg"
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 function AnimatedCard({ children, delay, isVisible }) {
   const animation = useSpring({
@@ -65,12 +67,12 @@ function SectionWithBgImage({ children, image }) {
           backgroundPosition: "center",
           WebkitMaskImage:
             "linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%)",
-          WebkitMaskRepeat: "no-repeat",
-          WebkitMaskSize: "100% 100%",
-          maskImage:
+            WebkitMaskRepeat: "no-repeat",
+            WebkitMaskSize: "100% 100%",
+            maskImage:
             "linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%)",
-          maskRepeat: "no-repeat",
-          maskSize: "100% 100%",
+            maskRepeat: "no-repeat",
+            maskSize: "100% 100%",
         }}
       />
 
@@ -124,57 +126,54 @@ const sections = [
   } 
 ]
 
-const galleryImages = [
-  log2,
-  log3
-]
 
-const galleryCaptions = [
-  'ПАО "Уралкалий"',
-  'АО "Еврохим"'
-]
-
-function ImageGallery({ style }) {
-  const [index, setIndex] = useState(0)
-  const intervalRef = useRef(null)
+function ImageGallery({ style, galleryImages, galleryCaptions }) {
+  const [index, setIndex] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const intervalRef = useRef(null);
 
   const startInterval = () => {
-    // Очищаем предыдущий интервал, если он существует
     if (intervalRef.current) {
-      clearInterval(intervalRef.current)
+      clearInterval(intervalRef.current);
     }
-    // Создаем новый интервал
     intervalRef.current = setInterval(() => {
-      setIndex(i => (i + 1) % galleryImages.length)
-    }, 6500)
-  }
+      setIndex((i) => (i + 1) % galleryImages.length);
+    }, 6500);
+  };
 
-  // Функция для ручного переключения с перезапуском интервала
   const handleManualChange = (newIndex) => {
-    setIndex(newIndex)
-    startInterval() // Перезапускаем интервал
-  }
+    setIndex(newIndex);
+    startInterval();
+  };
+
+  const handleImageClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   useEffect(() => {
-    startInterval() // Запускаем интервал при монтировании
+    startInterval();
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current)
+        clearInterval(intervalRef.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   return (
-    <div className="gallery-image-wrapper" style={style}>
+    <div className="gallery-image-wrapper" style={{ marginBottom: '0px' }}>
       <img
         src={galleryImages[index]}
         alt={galleryCaptions[index] || 'Gallery'}
         className="gallery-image"
         loading="lazy"
-        onClick={() => handleManualChange((index + 1) % galleryImages.length)}
+        onClick={handleImageClick}
         style={{ cursor: 'pointer' }}
       />
-      <div className="gallery-caption" style={{ marginTop: 12, fontSize: '1.1rem', color: '#444', textAlign: 'center', minHeight: 24 }}>
+      <div className="section-content" style={{ textAlign: 'center', marginBottom: '0' }}>
         {galleryCaptions[index]}
       </div>
       <div className="gallery-controls">
@@ -187,6 +186,45 @@ function ImageGallery({ style }) {
           />
         ))}
       </div>
+
+      <Modal
+  show={showModal}
+  onHide={handleCloseModal}
+  centered
+  fullscreen
+  style={{background: 'transparent'}}
+>
+  <Modal.Body style={{background: 'transparent', color: 'transparent'}} className="d-flex flex-column align-items-center" >
+    <TransformWrapper>
+      <TransformComponent>
+        <img
+          src={galleryImages[index]}
+          alt={galleryCaptions[index] || 'Gallery'}
+          style={{ maxWidth: '100%', maxHeight: '80vh' }}
+        />
+      </TransformComponent>
+    </TransformWrapper>
+    <button
+      onClick={handleCloseModal}
+      style={{
+        marginTop: '20px',
+        backgroundColor: '#2C4876',
+        color: '#FFFFFF',
+        border: 'none',
+        borderRadius: '8px',
+        padding: '10px 20px',
+        cursor: 'pointer',
+        fontSize: '1rem',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        transition: 'background-color 0.3s ease',
+      }}
+      onMouseOver={(e) => (e.target.style.backgroundColor = '#1B3A5F')}
+      onMouseOut={(e) => (e.target.style.backgroundColor = '#2C4876')}
+    >
+      Закрыть
+    </button>
+  </Modal.Body>
+</Modal>
     </div>
   )
 }
@@ -196,7 +234,7 @@ function Header() {
     <header className="main-header-class">
       <nav className="main-nav-class">
         <a
-          href='#aboutus'
+          href='#header'
           className="nav-link-class"
         >
           О нас
@@ -315,60 +353,65 @@ function CompanyLogoSection(){
   )
 }
 
-function SolutionSection({ text, works, benefits, onBack }) {
-  const maxRows = Math.max(works.length, benefits.length); // Determine the maximum number of rows
+function SolutionSection({ text, works, benefits, onBack, animation, images, captions }) {
   return (
-    <div>
-      <button onClick={onBack}>{"<-"}</button>
-      <div className="section-content">
-        <div className="container py-5">
-          <h3 className="section-title">{text}</h3>
-          <div className="row">
-            {Array.from({ length: maxRows }).map((_, index) => (
-              <div className="d-flex mb-3" key={index}>
-                {/* Left column: Work */}
-                <div className="col-md-6">
-                  {works[index] && (
-                    <div
-                      className="card mb-3 border-0 shadow-sm"
-                      style={{
-                        backgroundColor: "rgba(44, 62, 80, 0.829)",
-                        boxShadow: "0 8px 20px rgba(0, 0, 0, 0.15)",
-                        color: "white",
-                      }}
-                    >
-                      <div className="card-body">
-                        <i className="bi bi-check-circle me-2"></i>
-                        {works[index]}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Right column: Benefit */}
-                <div className="col-md-6">
-                  {benefits[index] && (
-                    <div
-                      className="card mb-3 border-0 shadow-sm"
-                      style={{
-                        backgroundColor: "rgba(44, 62, 80, 0.829)",
-                        boxShadow: "0 8px 20px rgba(0, 0, 0, 0.15)",
-                        color: "white",
-                      }}
-                    >
-                      <div className="card-body">
-                        <i className="bi bi-check-circle me-2"></i>
-                        {benefits[index]}
-                      </div>
-                    </div>
-                  )}
-                </div>
+    <animated.div style={animation}>
+      <button
+        onClick={onBack}
+        style={{
+          backgroundColor: '#2C4876',
+          color: '#FFFFFF',
+          border: 'none',
+          borderRadius: '8px',
+          padding: '10px 20px',
+          cursor: 'pointer',
+          fontSize: '1rem',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          transition: 'background-color 0.3s ease',
+        }}
+        onMouseOver={(e) => e.target.style.backgroundColor = '#1B3A5F'}
+        onMouseOut={(e) => e.target.style.backgroundColor = '#2C4876'}
+      >
+        {'< Назад'}
+      </button>
+      <div className='section-content'>
+       <div className="container py-5">
+        <h3 className="section-title">{text}</h3>
+        {images ? <ImageGallery
+      style={{marginTop: '0px'}}
+        galleryImages={images}
+        galleryCaptions={{}}
+      /> : <></>}
+      <div className="row">
+        {/* Комплекс работ */}
+        <div className="col-md-6">
+          <h4 className="mb-4 fw-bold">КОМПЛЕКС РАБОТ</h4>
+          {works.map((work, index) => (
+            <div className="card mb-3 border-0 shadow-sm" style={{ backgroundColor: "#2c4876bd", color: "white" }} key={index}>
+              <div className="card-body">
+                <i className="bi bi-check-circle me-2"></i>
+                {work}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Преимущества внедрения */}
+        <div className="col-md-6">
+          <h4 className="mb-4 fw-bold" style={{textWrap: 'nowrap'}}>ПРЕИМУЩЕСТВА ВНЕДРЕНИЯ</h4>
+          {benefits.map((benefit, index) => (
+            <div className="card mb-3 border-0 shadow-sm" style={{ backgroundColor: "#2c5276bd", color: "white" }} key={index}>
+              <div className="card-body">
+                <i className="bi bi-check-circle me-2"></i>
+                {benefit}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
+      </div>
+    </animated.div>
   );
 }
 
@@ -398,6 +441,11 @@ function AboutUsSection() {
 }
 
 function Solutions({ isSolSectionVisible, handleBack, solutionData, isVisible, toggleSolSection }) {
+  const solutionAnimation = useSpring({
+    opacity: isSolSectionVisible ? 1 : 0,
+    transform: isSolSectionVisible ? 'translateX(0px)' : 'translateX(50px)',
+    config: { tension: 200, friction: 30 }
+  });
   return (
     <SectionWithBgImage image={mine3}>
     <div className='section-title'>Комплексные решения</div> 
@@ -408,9 +456,11 @@ function Solutions({ isSolSectionVisible, handleBack, solutionData, isVisible, t
         works={solutionData.works}
         benefits={solutionData.benefits}
         onBack={handleBack}
+        isVisible={isSolSectionVisible}
+        animation={solutionAnimation}
       /> : 
-      <SectionWithParticles>
-        <div className='section-content' >
+      <SectionWithParticles height={parent.height}>
+        <div className='section-content'>
           <p>Мы предлагаем широкий спектр комплексных решений для горнодобывающей отрасли</p>
           <CardGrids cardsData={cardsData} isVisible={isVisible} toggleSection={toggleSolSection}/>
         </div>
@@ -421,16 +471,26 @@ function Solutions({ isSolSectionVisible, handleBack, solutionData, isVisible, t
 }
 
 function Products({ isProductSectionVisible, handleBack, productData, isVisible, toggleProdSection }) {
+   const solutionAnimation = useSpring({
+    opacity: isProductSectionVisible ? 1 : 0,
+    transform: isProductSectionVisible ? 'translateX(0px)' : 'translateX(50px)',
+    config: { tension: 200, friction: 30 }
+  });
   return (
     <SectionWithBgImage image={mine4}>
-    <div className='section-title'>Продукты</div> 
+    <div  className='section-title'>Продукты</div> 
     {
       isProductSectionVisible ? 
+     
       <SolutionSection
         text={productData.text}
         works={productData.works}
         benefits={productData.benefits}
         onBack={handleBack}
+        isVisible={isProductSectionVisible}
+        animation={solutionAnimation}
+        images={productData.images}
+        captions={productData.captions}
       /> : 
       <SectionWithParticles>
         <div className='section-content' >
@@ -458,7 +518,7 @@ function App() {
     setProductSectionVisible(true);
     const prodSection = document.getElementById('products');
     if (prodSection) {
-      prodSection.scrollIntoView({ behavior: 'smooth' });
+      prodSection.scrollIntoView({ behavior: 'instant' });
     }
   };
   const toggleSolSection = (data) => {
@@ -466,7 +526,7 @@ function App() {
     setSolSectionVisible(true);
     const solSection = document.getElementById('solutions');
     if (solSection) {
-      solSection.scrollIntoView({ behavior: 'smooth' });
+      solSection.scrollIntoView({ behavior: 'instant' });
     }
   };
   const handleProdBack = () => {
@@ -492,7 +552,6 @@ function App() {
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-  
 
   return (
     <div>
