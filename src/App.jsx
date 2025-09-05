@@ -10,7 +10,7 @@ import mineimg from './assets/shahta.png?inline'
 import mine2 from './assets/mine2.jpg?inline'
 import mine3 from './assets/mine3.jpg?inline'
 import mine4 from './assets/mine4.jpg?inline'
-import logo from './assets/Logo.svg'
+import logo from './assets/Logo.png'
 import MapSection from './MapSection';
 import {cardsData, productsCardsData} from './cardsData.js';
 
@@ -396,7 +396,8 @@ function CompanyLogoSection(){
       >
       
       <img src={logo} alt={"logo"} style={{
-        
+        width: '60px',
+        height: '60px',
         marginRight: '20px'}}></img>
       <div className='section-content' style={{color:"#f5f9faff", justifyContent: 'center', alignItems: 'center', minHeight: '100%', marginBottom: '0px'}}>
       
