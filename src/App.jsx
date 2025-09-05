@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import './mdggisStyle.css'
-import log2 from './assets/ukk.jpg'
-import log3 from './assets/eurohim.jpg'
 import { useSpring, animated } from '@react-spring/web';
 
 import { Card, Row, Col, Container, Modal } from 'react-bootstrap';
@@ -17,8 +15,9 @@ import MapSection from './MapSection';
 import {cardsData, productsCardsData} from './cardsData.js';
 
 import NavigationDots from './NavigationDots.jsx';
-import prog1 from "./assets/abcd.jpg"
+
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import meun from './assets/menu.svg'
 
 function AnimatedCard({ children, delay, isVisible }) {
   const animation = useSpring({
@@ -230,18 +229,72 @@ function ImageGallery({ style, galleryImages, galleryCaptions }) {
 }
 
 function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuSpring = useSpring({
+    transform: menuOpen ? 'translateY(0)' : 'translateY(-100%)',
+    opacity: menuOpen ? 1 : 0,
+    config: { tension: 200, friction: 20 },
+  });
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
+   <>
+    {menuOpen && (
+        <animated.div
+          style={{
+            ...menuSpring,
+            position: 'fixed',
+            top: '45px',
+            right: 0,
+            width: '200px',
+            height: 'auto',
+            backgroundColor: '#1B3A5F',
+            color: '#fff',
+            padding: '10px 0',
+            zIndex: 1002,
+          }}
+        >
+          {sections.map((section, idx) => (
+            <a
+              key={idx}
+              href={`#${section.type}`}
+              className="nav-link-class"
+              style={{
+                
+                display: 'block',
+                padding: '10px 20px',
+                textDecoration: 'none',
+                borderBottom: 'none',
+              }}
+              onClick={() => setMenuOpen(false)}
+            >
+              {section.nav}
+            </a>
+          ))}
+        </animated.div>
+      )}
     <header className="main-header-class">
       <nav className="main-nav-class">
-        <a
-          href='#header'
-          className="nav-link-class"
-        >
+        <a href="#header" className="nav-link-class">
           О нас
         </a>
-        <a href="#contact" className="nav-link-class">Контакты</a>
+        <a href="#contact" className="nav-link-class">
+          Контакты
+        </a>
+        <button
+          className="nav-link-class"
+          style={{ border: 'none', padding: 0, cursor: 'pointer' }}
+          onClick={toggleMenu}
+        >
+          <img className="menu-icon" src={meun} alt="Menu" />
+        </button>
       </nav>
+       
     </header>
+    </>
   )
 }
 
@@ -342,7 +395,9 @@ function CompanyLogoSection(){
         }}
       >
       
-      <img src={logo} alt={"logo"} style={{marginRight: '20px'}}></img>
+      <img src={logo} alt={"logo"} style={{
+        
+        marginRight: '20px'}}></img>
       <div className='section-content' style={{color:"#f5f9faff", justifyContent: 'center', alignItems: 'center', minHeight: '100%', marginBottom: '0px'}}>
       
       <span style={{display: 'block' }} >{'ООО "ГИС РЕШЕНИЯ"'}</span>

@@ -175,7 +175,7 @@
   z-index: 100;
   background: var(--header-bg);
   box-shadow: 0 2px 16px rgba(0,0,0,0.1);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - 180px) 100%, calc(100% - 200px) 50%, 0 50%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - 200px) 100%, calc(100% - 220px) 50%, 0 50%);
   backdrop-filter: blur(12px);
   padding: 0.5rem 0;
 }
@@ -201,6 +201,16 @@
 .nav-link-class:hover {
   background: rgb(255, 255, 255);
   color: var(--primary-light);
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  filter: invert(1) sepia(0) saturate(0) hue-rotate(180deg) brightness(2);
+  transition: filter 0.3s ease;
+}
+.menu-icon:hover {
+  filter: invert(0.3) sepia(1) saturate(5) hue-rotate(160deg) brightness(1.5);
 }
 
 /* General Layout */
@@ -246,6 +256,10 @@ body::after {
   }
   .section-title {
     font-size: 2.4rem;
+  }
+  .menu-icon {
+    width: 32px;
+    height: 32px;
   }
   .section-content {
     font-size: 1.7rem;
