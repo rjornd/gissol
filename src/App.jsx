@@ -46,7 +46,7 @@ function useScrollReveal() {
     const observeNodes = () => {
       document.querySelectorAll('.reveal:not(.visible)').forEach(el => obs.observe(el));
     };
-    
+
     observeNodes();
 
     const mutObs = new MutationObserver(() => {
@@ -156,7 +156,7 @@ function ImageGallery({ style, galleryImages, galleryCaptions }) {
             className="btn-primary"
             style={{ marginTop: '20px' }}
           >
-             Закрыть галерею
+            Закрыть галерею
           </button>
         </Modal.Body>
       </Modal>
@@ -197,7 +197,7 @@ function Header() {
       <nav id="main-nav" className={scrolled ? 'scrolled' : ''}>
         <a href="#" className="nav-logo">
           <img src={logo} alt="ГИС Решения" style={{ width: '32px', height: '32px' }} />
-          <span className="nav-brand">ГИС<br/>РЕШЕНИЯ</span>
+          <span className="nav-brand">ГИС<br />РЕШЕНИЯ</span>
         </a>
         <ul className="nav-links">
           <li><a href="#solutions">Решения</a></li>
@@ -223,25 +223,25 @@ function HeroSection() {
         <div className="hero-visual" aria-hidden="true">
           <svg viewBox="0 0 500 420" fill="none">
             <g opacity="0.7">
-              <ellipse cx="250" cy="80" rx="200" ry="40" stroke="#1D9E75" strokeWidth="0.8" strokeDasharray="4 3"/>
-              <ellipse cx="250" cy="160" rx="200" ry="40" stroke="#1D9E75" strokeWidth="0.8" strokeDasharray="4 3"/>
-              <ellipse cx="250" cy="240" rx="200" ry="40" stroke="#1D9E75" strokeWidth="0.6" strokeDasharray="4 3"/>
-              <ellipse cx="250" cy="320" rx="200" ry="40" stroke="#1D9E75" strokeWidth="0.4" strokeDasharray="4 3"/>
+              <ellipse cx="250" cy="80" rx="200" ry="40" stroke="#1D9E75" strokeWidth="0.8" strokeDasharray="4 3" />
+              <ellipse cx="250" cy="160" rx="200" ry="40" stroke="#1D9E75" strokeWidth="0.8" strokeDasharray="4 3" />
+              <ellipse cx="250" cy="240" rx="200" ry="40" stroke="#1D9E75" strokeWidth="0.6" strokeDasharray="4 3" />
+              <ellipse cx="250" cy="320" rx="200" ry="40" stroke="#1D9E75" strokeWidth="0.4" strokeDasharray="4 3" />
             </g>
-            <line x1="50" y1="80" x2="50" y2="360" stroke="#1D9E75" strokeWidth="0.8" opacity="0.5"/>
-            <line x1="450" y1="80" x2="450" y2="360" stroke="#1D9E75" strokeWidth="0.8" opacity="0.5"/>
-            <path d="M50 160L180 200L320 180L450 160" stroke="#5DCAA5" strokeWidth="0.8" fill="none" opacity="0.4"/>
-            <path d="M50 240L150 270L280 255L450 240" stroke="#5DCAA5" strokeWidth="0.6" fill="none" opacity="0.3"/>
-            <rect x="140" y="145" width="30" height="30" rx="2" stroke="#1D9E75" strokeWidth="1" fill="rgba(29,158,117,0.08)"/>
-            <rect x="280" y="145" width="30" height="30" rx="2" stroke="#1D9E75" strokeWidth="1" fill="rgba(29,158,117,0.08)"/>
-            <circle cx="155" cy="160" r="4" fill="#1D9E75" opacity="0.8"/>
-            <circle cx="295" cy="160" r="4" fill="#1D9E75" opacity="0.8"/>
-            <circle cx="195" cy="240" r="3" fill="#5DCAA5" opacity="0.5"/>
+            <line x1="50" y1="80" x2="50" y2="360" stroke="#1D9E75" strokeWidth="0.8" opacity="0.5" />
+            <line x1="450" y1="80" x2="450" y2="360" stroke="#1D9E75" strokeWidth="0.8" opacity="0.5" />
+            <path d="M50 160L180 200L320 180L450 160" stroke="#5DCAA5" strokeWidth="0.8" fill="none" opacity="0.4" />
+            <path d="M50 240L150 270L280 255L450 240" stroke="#5DCAA5" strokeWidth="0.6" fill="none" opacity="0.3" />
+            <rect x="140" y="145" width="30" height="30" rx="2" stroke="#1D9E75" strokeWidth="1" fill="rgba(29,158,117,0.08)" />
+            <rect x="280" y="145" width="30" height="30" rx="2" stroke="#1D9E75" strokeWidth="1" fill="rgba(29,158,117,0.08)" />
+            <circle cx="155" cy="160" r="4" fill="#1D9E75" opacity="0.8" />
+            <circle cx="295" cy="160" r="4" fill="#1D9E75" opacity="0.8" />
+            <circle cx="195" cy="240" r="3" fill="#5DCAA5" opacity="0.5" />
           </svg>
         </div>
         <div className="hero-content">
           <div className="hero-badge">Партнёр Пермского Политеха</div>
-          <h1>Интеллектуальные ГГИС <br/>для горной отрасли <em>нового поколения</em></h1>
+          <h1>Интеллектуальные ГГИС <br />для горной отрасли <em>нового поколения</em></h1>
           <p className="hero-sub">Разрабатываем и внедряем программные продукты и цифровые двойники предприятий. Оптимизируем процессы добычи, повышаем безопасность и экономическую эффективность работы рудников.</p>
           <div className="hero-actions">
             <a href="#contacts" className="btn-primary">Запросить демо &rarr;</a>
@@ -249,9 +249,9 @@ function HeroSection() {
           </div>
         </div>
         <div className="hero-stats">
-          <div className="stat-card"><div className="stat-num">300+</div><div className="stat-label">специалистов в системе<br/>«Уралкалия»</div></div>
-          <div className="stat-card"><div className="stat-num">#1</div><div className="stat-label">лучший ИТ-проект<br/>России и СНГ 2020</div></div>
-          <div className="stat-card"><div className="stat-num">193</div><div className="stat-label">проекта-участника<br/>в конкурсе</div></div>
+          <div className="stat-card"><div className="stat-num">800+</div><div className="stat-label">специалистов в системе<br />«Уралкалия»</div></div>
+          <div className="stat-card"><div className="stat-num">#1</div><div className="stat-label">лучший ИТ-проект<br />России и СНГ 2020</div></div>
+          <div className="stat-card"><div className="stat-num">193</div><div className="stat-label">проекта-участника<br />в конкурсе</div></div>
         </div>
       </section>
     </SectionWithBgImage>
@@ -264,7 +264,7 @@ function AwardBanner() {
       <div className="award-banner reveal">
         <div className="award-icon">
           <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
-            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#1D9E75" strokeWidth="1.5" fill="rgba(29,158,117,0.2)"/>
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#1D9E75" strokeWidth="1.5" fill="rgba(29,158,117,0.2)" />
           </svg>
         </div>
         <div className="award-text">
@@ -281,9 +281,9 @@ function ExpandedSolutionView({ data, onBack }) {
   return (
     <div className="solution-expanded animate-in" style={{ position: 'relative', zIndex: 10 }}>
       <div className="expanded-controls">
-        <button 
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); onBack(); }} 
-          className="btn-outline" 
+        <button
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); onBack(); }}
+          className="btn-outline"
           type="button"
           style={{ cursor: 'pointer', zIndex: 20, position: 'relative' }}
         >
@@ -293,10 +293,10 @@ function ExpandedSolutionView({ data, onBack }) {
           Узнать стоимость
         </a>
       </div>
-      
+
       <h3>{data.text}</h3>
       {data.images && data.images.length > 0 && (
-         <ImageGallery galleryImages={data.images} galleryCaptions={data.captions || []} />
+        <ImageGallery galleryImages={data.images} galleryCaptions={data.captions || []} />
       )}
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', marginTop: '2rem' }}>
@@ -325,33 +325,33 @@ function SolutionsSection() {
     <SectionWithBgImage image={mine3} id="solutions">
       <section className="solutions section" style={{ background: 'transparent' }}>
         <div className="sec-label reveal">Комплексные решения</div>
-        <div className="sec-title reveal d1">Полный цикл геолого-<br/>маркшейдерских работ</div>
+        <div className="sec-title reveal d1">Полный цикл геолого-<br />маркшейдерских работ</div>
         <p className="sec-sub reveal d2">От разведки месторождения до оперативного планирования горных работ — всё в единой цифровой среде.</p>
-        
+
         {selectedSolution ? (
-          <ExpandedSolutionView 
-            data={selectedSolution} 
+          <ExpandedSolutionView
+            data={selectedSolution}
             onBack={() => {
               setSelectedSolution(null);
               setIsReturning(true);
               setTimeout(() => {
                 document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }, 10);
-            }} 
+            }}
           />
         ) : (
           <div className={`sol-grid ${isReturning ? 'animate-in' : 'reveal d3'}`}>
             {cardsData.map((card, idx) => (
-              <div 
-                className="sol-card" 
-                key={idx} 
-                onClick={() => { 
-                  setSelectedSolution(card); 
+              <div
+                className="sol-card"
+                key={idx}
+                onClick={() => {
+                  setSelectedSolution(card);
                   setIsReturning(false);
                   setTimeout(() => {
                     document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }, 10);
-                }} 
+                }}
                 style={{ cursor: 'pointer' }}
               >
                 <div className="sol-num">0{idx + 1}</div>
@@ -376,33 +376,33 @@ function ProductsSection() {
     <SectionWithBgImage image={mine4} id="products">
       <section className="products-sec section" style={{ background: 'transparent' }}>
         <div className="sec-label reveal">Продукты</div>
-        <div className="sec-title reveal d1">Коробочные решения<br/>для горной отрасли</div>
+        <div className="sec-title reveal d1">Коробочные решения<br />для горной отрасли</div>
         <p className="sec-sub reveal d2">Готовые к внедрению программные продукты, созданные на основе многолетнего опыта работы с горнодобывающими предприятиями.</p>
-        
+
         {selectedProduct ? (
-          <ExpandedSolutionView 
-            data={selectedProduct} 
+          <ExpandedSolutionView
+            data={selectedProduct}
             onBack={() => {
               setSelectedProduct(null);
               setIsReturning(true);
               setTimeout(() => {
                 document.getElementById('products')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }, 10);
-            }} 
+            }}
           />
         ) : (
           <div className={`prod-grid ${isReturning ? 'animate-in' : 'reveal d3'}`}>
             {productsCardsData.map((prod, idx) => (
-              <div 
-                className="prod-card" 
-                key={idx} 
-                onClick={() => { 
+              <div
+                className="prod-card"
+                key={idx}
+                onClick={() => {
                   setSelectedProduct(prod);
                   setIsReturning(false);
                   setTimeout(() => {
                     document.getElementById('products')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }, 10);
-                }} 
+                }}
                 style={{ cursor: 'pointer' }}
               >
                 <div className="prod-tag">ПРОДУКТ</div>
@@ -435,7 +435,7 @@ function AboutSection() {
           </div>
           <div className="facts reveal d2">
             <div className="fact"><div className="fact-dot"></div><div className="fact-text"><strong>Победа в конкурсе GlobalCIO | DigitalExperts 2020</strong>Лучший ИТ-проект России и СНГ в номинации «Металлургия и непрерывное производство». 193 проекта-участника.</div></div>
-            <div className="fact"><div className="fact-dot"></div><div className="fact-text"><strong>300+ пользователей в ПАО «Уралкалий»</strong>Горняки, геологи, маркшейдеры, геомеханики и эксперты АО «ВНИИ Галургии» работают с системой в онлайн-режиме.</div></div>
+            <div className="fact"><div className="fact-dot"></div><div className="fact-text"><strong>800+ пользователей в ПАО «Уралкалий»</strong>Горняки, геологи, маркшейдеры, геомеханики и эксперты АО «ВНИИ Галургии» работают с системой в онлайн-режиме.</div></div>
             <div className="fact"><div className="fact-dot"></div><div className="fact-text"><strong>Партнёрство с Пермским Политехом</strong>Совместные исследования и разработки с кафедрой маркшейдерского дела, геодезии и геоинформационных систем.</div></div>
             <div className="fact"><div className="fact-dot"></div><div className="fact-text"><strong>Фокус на одной нише</strong>Мы не разрабатываем общие ГИС-решения. Наша специализация — исключительно горнодобывающая отрасль.</div></div>
           </div>
@@ -508,7 +508,7 @@ function ContactsSection() {
           <button className="btn-primary" type="button" style={{ width: 'fit-content' }} onClick={handleSubmit} disabled={isSent}>
             {btnText}
           </button>
-          
+
           <div className="partner-badge" style={{ marginTop: '2.5rem' }}>
             <div className="pb-label">Внимание</div>
             <div className="pb-text">
@@ -516,14 +516,14 @@ function ContactsSection() {
             </div>
           </div>
         </div>
-        
+
         <div className="contact-info reveal d2">
           <div className="ci"><div className="ci-label">Директор</div><div className="ci-val">Антон Вадимович Оверин</div></div>
           <div className="ci"><div className="ci-label">Email</div><a href="mailto:gissolutions@ya.ru" className="ci-val">gissolutions@ya.ru</a></div>
           <div className="ci"><div className="ci-label">Телефон</div><a href="tel:+73422799654" className="ci-val">+7 (3422) 799-654</a></div>
           <div className="ci" style={{ borderBottom: 'none', paddingBottom: '0.5rem' }}>
             <div className="ci-label">Адрес</div>
-            <div className="ci-val">Российская Федерация, г. Пермь<br/>ул. Монастырская, д. 12, офис 104</div>
+            <div className="ci-val">Российская Федерация, г. Пермь<br />ул. Монастырская, д. 12, офис 104</div>
           </div>
           <div style={{ marginTop: '0.5rem', width: '100%', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
             <MapSection />
