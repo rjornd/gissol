@@ -62,6 +62,37 @@ function useScrollReveal() {
   }, []);
 }
 
+function CustomCursor() {
+  const [position, setPosition] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    // Check if it's mobile before adding listener to save performance
+    if (window.matchMedia('(max-width: 900px)').matches) return;
+
+    const onMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+      
+      const target = e.target;
+      const isInteractive = target.closest('a, button, input, textarea, select, .nav-dot, .gallery-dot, .sol-card, .prod-card, .custom-select-option, [role="button"]');
+      setIsHovering(!!isInteractive);
+    };
+
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMouseMove);
+  }, []);
+
+  return (
+    <div 
+      className={`custom-cursor ${isHovering ? 'hovering' : ''}`}
+      style={{
+        left: `${position.x}px`,
+        top: `${position.y}px`
+      }}
+    />
+  );
+}
+
 // Wrapper for Acron.ru like parallax background
 function SectionWithBgImage({ children, image, align = 'center', id }) {
   return (
@@ -445,6 +476,58 @@ function AboutSection() {
   );
 }
 
+const selectOptions = [
+  "Комплексная ГГИС предприятия",
+  "Расчёт плановых нормативов потерь",
+  "Модуль «3D-Рудник»",
+  "Интеграция с существующей ГИС",
+  "Разработка под заказ"
+];
+
+function CustomSelect({ value, onChange }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="custom-select-container" ref={containerRef}>
+      <button
+        type="button"
+        className={`custom-select-trigger ${isOpen ? "open" : ""}`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {value || "Выберите направление"}
+      </button>
+      <div className={`custom-select-options ${isOpen ? "open" : ""}`}>
+        <div
+          className={`custom-select-option ${value === "" ? "selected" : ""}`}
+          onClick={() => { onChange({ target: { name: 'interest', value: '' } }); setIsOpen(false); }}
+        >
+          Выберите направление
+        </div>
+        {selectOptions.map(opt => (
+          <div
+            key={opt}
+            className={`custom-select-option ${value === opt ? "selected" : ""}`}
+            onClick={() => { onChange({ target: { name: 'interest', value: opt } }); setIsOpen(false); }}
+          >
+            {opt}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ContactsSection() {
   const [formData, setFormData] = useState({ name: '', company: '', email: '', interest: '', message: '' });
   const [btnText, setBtnText] = useState('Отправить заявку →');
@@ -492,14 +575,7 @@ function ContactsSection() {
           </div>
           <div className="form-group">
             <label>Интересующее решение</label>
-            <select name="interest" value={formData.interest} onChange={handleInputChange}>
-              <option value="">Выберите направление</option>
-              <option value="Комплексная ГГИС предприятия">Комплексная ГГИС предприятия</option>
-              <option value="Расчёт плановых нормативов потерь">Расчёт плановых нормативов потерь</option>
-              <option value="Модуль «3D-Рудник»">Модуль «3D-Рудник»</option>
-              <option value="Интеграция с существующей ГИС">Интеграция с существующей ГИС</option>
-              <option value="Разработка под заказ">Разработка под заказ</option>
-            </select>
+            <CustomSelect value={formData.interest} onChange={handleInputChange} />
           </div>
           <div className="form-group">
             <label>Сообщение</label>
@@ -564,12 +640,42 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const newVisible = sectionsDef.map((sec) => {
+      let activeIndex = -1;
+      let minDistance = Infinity;
+      const centerY = window.innerHeight / 2;
+
+      sectionsDef.forEach((sec, idx) => {
         const el = document.getElementById(sec.type);
-        if (!el) return false;
+        if (!el) return;
         const rect = el.getBoundingClientRect();
-        return rect.top < window.innerHeight * 0.75 && rect.bottom > 0;
+        
+        if (rect.top <= centerY && rect.bottom >= centerY) {
+          activeIndex = idx;
+        } else if (activeIndex === -1) {
+          const dist = Math.min(Math.abs(rect.top - centerY), Math.abs(rect.bottom - centerY));
+          if (dist < minDistance) {
+            minDistance = dist;
+            // only fallback if we haven't found an exact match yet
+          }
+        }
       });
+      
+      // Secondary pass if no section strictly contains the center
+      if (activeIndex === -1) {
+         sectionsDef.forEach((sec, idx) => {
+          const el = document.getElementById(sec.type);
+          if (!el) return;
+          const rect = el.getBoundingClientRect();
+          const dist = Math.min(Math.abs(rect.top - centerY), Math.abs(rect.bottom - centerY));
+          if (dist === minDistance) {
+            activeIndex = idx;
+          }
+        });
+      }
+
+      if (activeIndex === -1) activeIndex = 0;
+
+      const newVisible = sectionsDef.map((_, idx) => idx === activeIndex);
       setVisibleSections(newVisible);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -579,6 +685,7 @@ function App() {
 
   return (
     <div>
+      <CustomCursor />
       <Header />
       <NavigationDots sections={sectionsDef} visibleSections={visibleSections} />
       <HeroSection />

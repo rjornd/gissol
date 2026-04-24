@@ -44,16 +44,6 @@ function DarkMap() {
     ref={mapContainer}
     style={{ width: "100%", height: "100%", borderRadius: "12px" }}
   />
-  <div
-    style={{
-      position: "absolute",
-      inset: 0,
-      borderRadius: "12px",
-      pointerEvents: "none",
-      background: "linear-gradient(0deg, #122A40 0%, #152F48 30%, #1B3A5F 70%, #122A40 100%)",
-      opacity: 0.15
-    }}
-  />
 </div>
   );
 }
