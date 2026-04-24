@@ -60,26 +60,12 @@ function DarkMap() {
 
 export default function MapSection() {
   return (
-    <div
-      style={{
-        justifyContent: "center",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "80%",
-        maxWidth: "900px",
-      }}
-    >
-      <div className="section-content" style={{ textAlign: "center" }}>
-        Российская Федерация, г. Пермь, ул. Монастырская, д. 12, офис 104
-      </div>
-
+    <div style={{ position: "relative", width: "100%", height: "400px" }}>
       {/* Оверлей для "разблокировки карты по клику" */}
       <div
         style={{
           position: "absolute",
-          width: "100%",
-          height: "400px",
+          inset: 0,
           zIndex: 2,
           cursor: "grab",
           background: "transparent",
@@ -95,7 +81,6 @@ export default function MapSection() {
           }
         }}
       />
-
       <DarkMap />
     </div>
   );

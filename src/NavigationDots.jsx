@@ -12,14 +12,15 @@ export default function NavigationDots({ sections, visibleSections }) {
 
   return (
     <div
+      className="nav-dots-container"
       style={{
         position: 'fixed',
-        right: '20px',
+        right: '15px',
         top: '50%',
         transform: 'translateY(-50%)',
         display: 'flex',
         flexDirection: 'column',
-        gap: '10px',
+        gap: '8px',
         zIndex: 1000, // Ensures dots are above background
       }}
     >
@@ -40,10 +41,11 @@ export default function NavigationDots({ sections, visibleSections }) {
         return (
           <div key={index} style={{ position: 'relative' }}>
             <animated.div
+              className="nav-dot"
               style={{
                 ...spring,
-                width: '12px',
-                height: '12px',
+                width: '10px',
+                height: '10px',
                 borderRadius: '50%',
                 cursor: 'pointer',
                 zIndex: 1001, // Ensures individual dots are above other elements
@@ -54,10 +56,11 @@ export default function NavigationDots({ sections, visibleSections }) {
             />
             {hoveredIndex === index && (
               <animated.div
+                className="nav-dot-tooltip"
                 style={{
                   ...tooltipSpring,
                   position: 'absolute',
-                  right: '30px',
+                  right: '25px',
                   top: '50%',
                   transform: 'translateY(-50%)',
                   backgroundColor: '#1B3A5F',
