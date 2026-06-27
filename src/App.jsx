@@ -269,7 +269,8 @@ function Header() {
           <li><LanguageSwitcher /></li>
           <li><a href="#contacts" className="nav-cta">{t.nav.contactCta}</a></li>
         </ul>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }} className="d-lg-none">
+        <div className="mobile-nav-actions">
+          <LanguageSwitcher className="mobile-top-language" />
           <button className={`hamburger ${menuOpen ? 'open' : ''}`} id="hbg" aria-label={t.aria.menu} onClick={handleHamburgerClick}>
             <span></span><span></span><span></span>
           </button>
@@ -526,10 +527,27 @@ function ProcessSection() {
       <p className="section-sub reveal d2">{t.process.sub}</p>
       <div className="process-steps reveal d3">
         {t.process.steps.map((step, idx) => (
-          <div className={`process-step ${idx === 0 ? 'active' : ''}`} key={step.title}>
+          <div
+            className={`process-step ${idx === 0 ? 'active' : ''}`}
+            key={step.title}
+            style={{ '--step-index': idx }}
+          >
             <div className="process-circle">{String(idx + 1).padStart(2, '0')}</div>
-            <div className="process-title">{step.title}</div>
-            <div className="process-desc">{step.desc}</div>
+            <div className="process-card">
+              <div className="process-title">{step.title}</div>
+              <div className="process-desc">{step.desc}</div>
+            </div>
+            {idx < t.process.steps.length - 1 && (
+              <svg
+                className="process-mobile-connector"
+                viewBox="0 0 220 240"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+                style={{ '--path-index': idx }}
+              >
+                <path d="M110 24 L110 232" />
+              </svg>
+            )}
           </div>
         ))}
       </div>
