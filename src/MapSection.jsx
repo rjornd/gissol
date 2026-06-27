@@ -1,7 +1,8 @@
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useEffect, useRef } from "react";
-import mapstyle from "./assets/mapstyle.json"; // путь к вашему стилю карты
+import mapstyle from "./assets/mapstyle.json";
+
 function DarkMap() {
   const mapContainer = useRef(null);
   const mapInstance = useRef(null);
@@ -14,17 +15,15 @@ function DarkMap() {
       style: mapstyle,
       center: [56.233252, 58.015566],
       zoom: 15,
-      attributionControl: false // <- убирает дефолтный блок
+      attributionControl: false
     });
   //  style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-    // Добавление метки
     new maplibregl.Marker({ color: "#7ba9e6ff" }) 
       .setLngLat([56.233252, 58.015566])
       .addTo(mapInstance.current);
 
     mapInstance.current.addControl(new maplibregl.NavigationControl(), "top-right");
 
-    // 👇 слушаем потерю контекста и пересоздаём карту
     mapInstance.current.on("webglcontextlost", (e) => {
       e.preventDefault();
       mapInstance.current.resize();
@@ -38,30 +37,16 @@ function DarkMap() {
     };
   }, []);
 
-  return (
-    <div style={{ position: "relative", width: "100%", height: "400px" }}>
-  <div
-    ref={mapContainer}
-    style={{ width: "100%", height: "100%", borderRadius: "12px" }}
-  />
-</div>
-  );
+  return <div ref={mapContainer} className="map-canvas" />;
 }
 
-export default function MapSection() {
+export default function MapSection({ interactionLabel = "Click to interact with the map" }) {
   return (
-    <div style={{ position: "relative", width: "100%", height: "400px" }}>
-      {/* Оверлей для "разблокировки карты по клику" */}
+    <div className="map-shell">
       <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 2,
-          cursor: "grab",
-          background: "transparent",
-        }}
+        className="map-interaction-layer"
         tabIndex={0}
-        aria-label="Для взаимодействия с картой кликните"
+        aria-label={interactionLabel}
         onClick={(e) => {
           e.currentTarget.style.pointerEvents = "none";
         }}
