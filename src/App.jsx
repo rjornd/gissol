@@ -33,7 +33,7 @@ function useScrollReveal() {
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    }, { threshold: 0.04, rootMargin: '0px 0px -12px 0px' });
 
     const observeNodes = () => {
       document.querySelectorAll('.reveal:not(.visible)').forEach(el => obs.observe(el));

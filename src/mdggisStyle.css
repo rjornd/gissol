@@ -120,18 +120,18 @@ body {
 }
 
 /* REVEAL */
-.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.34s ease, transform 0.34s ease; }
 .reveal.visible { opacity: 1; transform: none; }
-.d1 { transition-delay: 0.1s; }
-.d2 { transition-delay: 0.2s; }
-.d3 { transition-delay: 0.3s; }
+.d1 { transition-delay: 0.04s; }
+.d2 { transition-delay: 0.08s; }
+.d3 { transition-delay: 0.12s; }
 
 @keyframes slideFadeIn {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .animate-in {
-  animation: slideFadeIn 0.5s ease forwards;
+  animation: slideFadeIn 0.28s ease forwards;
 }
 
 /* NAV */
@@ -308,7 +308,7 @@ html[data-theme="light"] .hero-bg {
   color: var(--teal-light); font-size: 0.7rem; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
   padding: 0.38rem 0.85rem; border-radius: 2px; margin-bottom: 1.75rem;
-  animation: fdown 0.8s ease 0.2s both;
+  animation: fdown 0.42s ease 0.06s both;
 }
 html[data-theme="light"] .hero-badge { color: var(--teal-dark); }
 .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--teal); border-radius: 50%; animation: blink 2s infinite; }
@@ -365,7 +365,7 @@ select:focus-visible,
   flex-direction: column;
   gap: 1rem;
   min-width: 0;
-  animation: fup 1s ease 0.75s both;
+  animation: fup 0.48s ease 0.16s both;
 }
 .hero-app-window {
   background: #f7fafb;
