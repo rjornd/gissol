@@ -647,10 +647,6 @@ function AboutSection() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <div className="partners-box reveal d3">
-              <div className="partners-label">{t.about.partnersLabel}</div>
-              <div className="partners-list">{t.about.partners}</div>
-            </div>
           </div>
           <div className="facts reveal d2">
             {t.about.facts.map((fact) => (

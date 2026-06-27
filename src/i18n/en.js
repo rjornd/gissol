@@ -129,8 +129,6 @@ const en = {
       'The company works with leading mining enterprises in Russia and partners with the Mine Surveying, Geodesy and Geoinformation Systems department at Perm Polytechnic University. This keeps us close to industry research and practice.',
       'Our flagship project, a Mining GIS platform and mine digital twin for Uralkali, was recognized as the best IT project in Russia and the CIS by the GlobalCIO | DigitalExperts professional community.',
     ],
-    partnersLabel: 'Partners and research collaborators',
-    partners: 'Perm Polytechnic University (MDG&GIS department) · VNII Galurgii · Mining Institute, Ural Branch RAS',
     facts: [
       { title: 'GlobalCIO | DigitalExperts 2020 winner', text: 'Best IT project in Russia and the CIS in the Metallurgy and continuous production category. 193 projects participated.' },
       { title: '800+ users at Uralkali', text: 'Miners, geologists, mine surveyors, geomechanics specialists and VNII Galurgii experts use the system online.' },
