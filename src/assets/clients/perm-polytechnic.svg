@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" role="img" aria-labelledby="title">
+  <title id="title">Пермский Политех</title>
+  <g fill="currentColor">
+    <path d="M6 6h108v108H6z"/>
+    <path fill="#fff" d="M52 114V55l8-31 8 31v59H52Z"/>
+    <text x="146" y="52" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800" letter-spacing="1">ПЕРМСКИЙ</text>
+    <text x="146" y="88" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="800" letter-spacing=".6">ПОЛИТЕХ</text>
+  </g>
+</svg>

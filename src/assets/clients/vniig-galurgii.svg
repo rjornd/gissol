@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" role="img" aria-labelledby="title">
+  <title id="title">ВНИИ Галургии</title>
+  <g fill="currentColor">
+    <path fill-rule="evenodd" d="M68 4 19 60l49 56 49-56L68 4Zm0 18 33 38-33 38-33-38 33-38Z"/>
+    <path d="M7 41h122v38H7z"/>
+    <text x="17" y="67" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="800" letter-spacing=".5">ВНИИ</text>
+    <text x="148" y="70" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="800">ГАЛУРГИИ</text>
+  </g>
+</svg>

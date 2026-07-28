@@ -47,17 +47,18 @@ const en = {
     stats: [
       { num: '800+', label: ['users', 'at Uralkali'] },
       { num: '#1', label: ['IT project of the year', 'Russia and CIS 2020'] },
-      { num: '9', label: ['automation', 'workstreams'] },
+      { num: '15', label: ['automation', 'workstreams'] },
     ],
   },
   clients: {
     label: 'Trusted by industry teams and partners',
     logos: [
-      { name: 'URALKALI', meta: 'client' },
-      { name: 'VNII GALURGII', meta: 'partner' },
-      { name: 'MINING INSTITUTE', meta: 'Ural Branch RAS' },
-      { name: 'PERM POLYTECH', meta: 'MDG&GIS department' },
-      { name: 'GLOBALCIO', meta: 'award 2020' },
+      { name: 'URALKALI', meta: 'client', logoKey: 'uralkali' },
+      { name: 'VNII GALURGII', meta: 'partner', logoKey: 'vniigGalurgii' },
+      { name: 'MINING INSTITUTE', meta: 'Ural Branch RAS', logoKey: 'miningInstitute' },
+      { name: 'PERM POLYTECH', meta: 'MDG&GIS department', logoKey: 'permPolytechnic' },
+      { name: 'EUROCHEM', meta: 'fertilizer producer', logoKey: 'eurochem' },
+      { name: 'ACRON', meta: 'fertilizer producer', logoKey: 'acron' },
     ],
   },
   case: {
@@ -67,10 +68,9 @@ const en = {
     awardTitle: 'GlobalCIO Award 2020',
     awardText: 'Best IT project in Russia and the CIS in the Metallurgy and continuous production category, selected from 193 participating projects.',
     metrics: [
-      { num: '800+', label: ['specialists use', 'the system daily'] },
-      { num: '9', label: ['enterprise teams', 'automated'] },
+      { num: '15', label: ['automated teams', 'across enterprises and research institutes'] },
       { num: '24/7', label: ['online access', 'to mining data'] },
-      { num: '4', label: ['mines included', 'in one digital loop'] },
+      { num: '6', label: ['mines included', 'in one digital loop'] },
     ],
     avatar: 'UK',
     quote: '“The Mining GIS platform from GIS Solutions helped us bring miners, geologists, mine surveyors and geomechanics teams into one digital environment. Together with VNII Galurgii and the Mining Institute of the Ural Branch of RAS, we received a tool with no industry equivalent.”',
@@ -92,7 +92,7 @@ const en = {
     ],
     expanded: {
       back: '← Back to list',
-      price: 'Request pricing',
+      demo: 'Request a demo',
       works: 'TASKS WE SOLVE',
       benefits: 'IMPLEMENTATION RESULTS',
     },
@@ -163,7 +163,6 @@ const en = {
       email: 'Email',
       interest: 'Solution of interest',
       message: 'Message',
-      manager: 'Lead corporate account manager',
       phone: 'Phone',
       address: 'Address',
     },
@@ -189,8 +188,20 @@ const en = {
     nextStepsLabel: 'What happens after the request',
     nextStepsAria: 'Path after submitting a request',
     nextSteps: ['We contact you', 'We clarify the task', 'We show a demo or propose an implementation plan'],
-    infoTitle: 'Implementation contact',
-    managerName: 'Anastasia Gart',
+    infoTitle: 'Implementation contacts',
+    primaryEmail: 'gissol@gissol.ru',
+    people: [
+      {
+        role: 'Lead corporate account manager',
+        name: 'Anastasia Gart',
+        email: 'gissol@gissol.ru',
+      },
+      {
+        role: 'Director',
+        name: 'Anton Overin',
+        email: 'overinanton@gissol.ru',
+      },
+    ],
     address: ['Russian Federation, Perm', 'Monastyrskaya St., 12, office 104'],
     mail: {
       subjectFallback: 'website visitor',
@@ -207,6 +218,7 @@ const en = {
   footer: {
     brand: 'GIS SOLUTIONS',
     copyright: '© 2025 GIS Solutions LLC. All rights reserved.',
+    emails: ['gissol@gissol.ru', 'overinanton@gissol.ru'],
   },
   cards: {
     solutions: [
@@ -270,7 +282,7 @@ const en = {
         text: 'Planned loss rate calculation',
         description: 'An automated system for accurate calculation and control of planned mineral losses. It helps reduce costs and comply with regulatory requirements.',
         tag: 'Mine surveying',
-        price: 'from 450,000 RUB',
+        price: 'from 100,000 RUB',
         implementation: '6-8 weeks',
         includes: ['Calculation by current methodologies', 'Report material generation', 'Planned loss control'],
         works: ['Loss data analysis', 'Calculation model development', 'Loss accounting workflow optimization'],
