@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" role="img" aria-labelledby="title">
-  <title id="title">ЕвроХим</title>
-  <g fill="currentColor">
-    <path fill-rule="evenodd" d="M67 10 10 60l57 50 57-50L67 10Zm0 14 24 22H75v27h16L67 96 43 74h16V46H43l24-22Z"/>
-    <circle cx="67" cy="60" r="10"/>
-    <text x="148" y="76" font-family="Arial, Helvetica, sans-serif" font-size="47" font-weight="800" letter-spacing="2">ЕВРОХИМ</text>
-  </g>
-</svg>

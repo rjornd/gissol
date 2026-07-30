@@ -1,5 +1,5 @@
-import prog1 from "./assets/abcd.jpg?inline"
-import prog2 from "./assets/abce.jpg?inline"
+import prog1 from "./assets/image_2026-1.png"
+import prog2 from "./assets/image_2026-2.png"
 
 export const svgIcons = {
   1: '<svg viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 14h28M14 4v28" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/><circle cx="18" cy="18" r="4" fill="currentColor" opacity="0.3"/><circle cx="10" cy="10" r="2" fill="currentColor"/><circle cx="26" cy="26" r="2" fill="currentColor"/></svg>',

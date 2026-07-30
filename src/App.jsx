@@ -5,7 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { ArrowRight } from 'lucide-react';
 
-import heroAppShot from './assets/abce.jpg?inline'
+import mineimg from './assets/shahta.png?inline'
+import mine3 from './assets/mine3.jpg?inline'
+import mine4 from './assets/mine4.jpg?inline'
+import heroAppShot from './assets/image_2026-1.png'
 import logo from './assets/Logo.png'
 import uralkaliLogo from './assets/clients/uralkali.jpg';
 import vniigGalurgiiLogo from './assets/clients/vniig-galurgii.jpg';
@@ -97,8 +100,32 @@ function CustomCursor() {
   );
 }
 
-function SectionWrapper({ children, id }) {
-  return <div id={id}>{children}</div>;
+// Wrapper for Acron.ru like parallax background
+function SectionWithBgImage({ children, image, align = 'center', id }) {
+  return (
+    <div style={{ position: "relative", width: "100%", zIndex: 1 }} id={id}>
+      <div
+        className="parallax-bg"
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `linear-gradient(to bottom, rgba(238, 244, 247, 0.98) 0%, rgba(238, 244, 247, 0.85) 50%, rgba(238, 244, 247, 0.98) 100%), url(${image})`,
+          backgroundSize: "cover",
+          backgroundPosition: align,
+          filter: "grayscale(85%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+          maskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+          WebkitMaskRepeat: "no-repeat",
+          maskRepeat: "no-repeat",
+          WebkitMaskSize: "100% 100%",
+          maskSize: "100% 100%",
+          zIndex: 0,
+          pointerEvents: 'none'
+        }}
+      />
+      <div style={{ position: "relative", zIndex: 2 }}>{children}</div>
+    </div>
+  );
 }
 
 function Lines({ items }) {
@@ -272,7 +299,7 @@ function HeroSection() {
   const { t } = useI18n();
 
   return (
-    <SectionWrapper id="hero">
+    <SectionWithBgImage image={mineimg} id="hero">
       <section className="hero">
         <div className="hero-scanner"></div>
         <div className="hero-visual" aria-hidden="true">
@@ -323,7 +350,7 @@ function HeroSection() {
           </div>
         </div>
       </section>
-    </SectionWrapper>
+    </SectionWithBgImage>
   );
 }
 
@@ -444,7 +471,7 @@ function SolutionsSection() {
   }));
 
   return (
-    <SectionWrapper id="solutions">
+    <SectionWithBgImage image={mine3} id="solutions">
       <section className="solutions section" style={{ background: 'transparent' }}>
         <div className="sec-label reveal">{t.solutions.label}</div>
         <div className="sec-title reveal d1"><Lines items={t.solutions.title} /></div>
@@ -507,7 +534,7 @@ function SolutionsSection() {
           </div>
         )}
       </section>
-    </SectionWrapper>
+    </SectionWithBgImage>
   );
 }
 
@@ -556,7 +583,7 @@ function ProductsSection() {
   const [isReturning, setIsReturning] = useState(false);
 
   return (
-    <SectionWrapper id="products">
+    <SectionWithBgImage image={mine4} id="products">
       <section className="products-sec section" style={{ background: 'transparent' }}>
         <div className="sec-label reveal">{t.products.label}</div>
         <div className="sec-title reveal d1"><Lines items={t.products.title} /></div>
@@ -639,7 +666,7 @@ function ProductsSection() {
           </div>
         )}
       </section>
-    </SectionWrapper>
+    </SectionWithBgImage>
   );
 }
 
@@ -647,7 +674,7 @@ function AboutSection() {
   const { t } = useI18n();
 
   return (
-    <SectionWrapper id="about">
+    <SectionWithBgImage image={mineimg} id="about">
       <section className="about section" style={{ background: 'transparent' }}>
         <div className="sec-label reveal">{t.about.label}</div>
         <div className="about-grid">
@@ -670,7 +697,7 @@ function AboutSection() {
           </div>
         </div>
       </section>
-    </SectionWrapper>
+    </SectionWithBgImage>
   );
 }
 

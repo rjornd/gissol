@@ -332,6 +332,11 @@ html[data-theme="light"] .hero-badge { color: var(--teal-dark); }
 @keyframes fdown { from { opacity:0; transform:translateY(-14px); } to { opacity:1; transform:none; } }
 @keyframes fup { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
 
+/* PARALLAX BG FIX FOR MOBILE */
+.parallax-bg {
+  background-attachment: fixed !important;
+}
+
 .hero h1 { font-family: var(--font-display); font-size: clamp(1.65rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.18; letter-spacing: 0; margin-bottom: 1.25rem; color: var(--text); transition: color 0.32s; }
 html[data-theme="light"] .hero h1 { color: #071828; }
 .hero h1 em { font-style: normal; color: var(--teal-light); }
@@ -529,7 +534,6 @@ html[data-theme="light"] .hero-visual { opacity: 0.1; }
   max-width: 150px;
   height: 72px;
   object-fit: contain;
-  filter: grayscale(1) contrast(1.14);
 }
 .client-logo-image[data-logo="miningInstitute"],
 .client-logo-image[data-logo="permPolytechnic"] {
@@ -603,7 +607,7 @@ html[data-theme="light"] .hero-visual { opacity: 0.1; }
 }
 .case-metrics {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   margin-bottom: 3rem;
 }
@@ -1288,7 +1292,7 @@ footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex;
   .case-header,
   .cta-banner { grid-template-columns: 1fr; gap: 2rem; }
   .case-cta { flex-direction: column; align-items: flex-start; }
-  .case-metrics { grid-template-columns: repeat(3, 1fr); }
+  .case-metrics { grid-template-columns: repeat(2, 1fr); }
   .process-steps { grid-template-columns: repeat(3, 1fr); row-gap: 2rem; }
   .process-steps::before { display: none; }
   .testimonials-grid { grid-template-columns: 1fr; }
@@ -1296,6 +1300,11 @@ footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex;
   .cta-btn { justify-self: start; }
   footer { padding: 1.5rem; flex-direction: column; align-items: flex-start; }
   .footer-links { flex-wrap: wrap; gap: 1rem; }
+
+  .parallax-bg {
+    background-attachment: scroll !important;
+  }
+
   .nav-dots-container {
     right: 8px !important;
     gap: 6px !important;

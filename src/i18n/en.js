@@ -68,6 +68,7 @@ const en = {
     awardTitle: 'GlobalCIO Award 2020',
     awardText: 'Best IT project in Russia and the CIS in the Metallurgy and continuous production category, selected from 193 participating projects.',
     metrics: [
+      { num: '800+', label: ['specialists work', 'in the system'] },
       { num: '15', label: ['automated teams', 'across enterprises and research institutes'] },
       { num: '24/7', label: ['online access', 'to mining data'] },
       { num: '6', label: ['mines included', 'in one digital loop'] },
