@@ -8,12 +8,27 @@ import { ArrowRight } from 'lucide-react';
 import mineimg from './assets/shahta.png?inline'
 import mine3 from './assets/mine3.jpg?inline'
 import mine4 from './assets/mine4.jpg?inline'
-import heroAppShot from './assets/abce.jpg?inline'
+import heroAppShot from './assets/image_2026-1.png'
 import logo from './assets/Logo.png'
+import uralkaliLogo from './assets/clients/uralkali.jpg';
+import vniigGalurgiiLogo from './assets/clients/vniig-galurgii.jpg';
+import miningInstituteLogo from './assets/clients/mining-institute.svg';
+import permPolytechnicLogo from './assets/clients/perm-polytechnic.png';
+import eurochemLogo from './assets/clients/eurochem.jpg';
+import acronLogo from './assets/clients/acron-engineering.jpg';
 import MapSection from './MapSection';
 import NavigationDots from './NavigationDots.jsx';
 import { getCardsData } from './cardsData.js';
 import { useI18n } from './i18n/LanguageProvider.jsx';
+
+const clientLogoAssets = {
+  uralkali: uralkaliLogo,
+  vniigGalurgii: vniigGalurgiiLogo,
+  miningInstitute: miningInstituteLogo,
+  permPolytechnic: permPolytechnicLogo,
+  eurochem: eurochemLogo,
+  acron: acronLogo,
+};
 
 // --- CUSTOM HOOKS & UTILS --- //
 
@@ -341,14 +356,21 @@ function HeroSection() {
 
 function ClientsStrip() {
   const { t } = useI18n();
+  const visibleClients = t.clients.logos.filter(({ logoKey }) => logoKey !== 'eurochem');
 
   return (
     <div className="clients-strip reveal">
       <div className="clients-label">{t.clients.label}</div>
       <div className="clients-grid">
-        {t.clients.logos.map((client) => (
+        {visibleClients.map((client) => (
           <div className="client-logo" key={client.name}>
-            {client.name}
+            <img
+              className="client-logo-image"
+              data-logo={client.logoKey}
+              src={clientLogoAssets[client.logoKey]}
+              alt={client.name}
+              loading="lazy"
+            />
             <small>{client.meta}</small>
           </div>
         ))}
@@ -412,7 +434,7 @@ function ExpandedSolutionView({ data, onBack, labels }) {
           {labels.back}
         </button>
         <a href="#contacts" className="btn-primary">
-          {labels.price}
+          {labels.demo}
         </a>
       </div>
 
@@ -740,7 +762,7 @@ function ContactsSection() {
     const body = encodeURIComponent(
       `${t.contacts.mail.fields.name}: ${formData.name}\n${t.contacts.mail.fields.company}: ${formData.company}\n${t.contacts.mail.fields.email}: ${formData.email}\n${t.contacts.mail.fields.interest}: ${formData.interest}\n\n${t.contacts.mail.fields.message}:\n${formData.message}`
     );
-    return `mailto:gissolutions@ya.ru?subject=${subject}&body=${body}`;
+    return `mailto:${t.contacts.primaryEmail}?subject=${subject}&body=${body}`;
   };
 
   const handleSubmit = (e) => {
@@ -790,7 +812,7 @@ function ContactsSection() {
                   {btnText}
                 </button>
                 <p className="contact-fallback">
-                  {t.contacts.fallback.beforeEmail} <a href="mailto:gissolutions@ya.ru">gissolutions@ya.ru</a> {t.contacts.fallback.beforePhone} <a href="tel:+73422799654">+7 (3422) 799-654</a>.
+                  {t.contacts.fallback.beforeEmail} <a href={`mailto:${t.contacts.primaryEmail}`}>{t.contacts.primaryEmail}</a> {t.contacts.fallback.beforePhone} <a href="tel:+73422799654">+7 (3422) 799-654</a>.
                 </p>
               </div>
             </form>
@@ -811,8 +833,18 @@ function ContactsSection() {
 
           <div className="contact-info reveal d2">
             <div className="contact-info-title">{t.contacts.infoTitle}</div>
-            <div className="ci"><div className="ci-label">{t.contacts.labels.manager}</div><div className="ci-val">{t.contacts.managerName}</div></div>
-            <div className="ci"><div className="ci-label">{t.contacts.labels.email}</div><a href="mailto:gissolutions@ya.ru" className="ci-val">gissolutions@ya.ru</a></div>
+            {t.contacts.people.map((person) => (
+              <div className="contact-person" key={person.email}>
+                <div className="ci">
+                  <div className="ci-label">{person.role}</div>
+                  <div className="ci-val">{person.name}</div>
+                </div>
+                <div className="ci">
+                  <div className="ci-label">{t.contacts.labels.email}</div>
+                  <a href={`mailto:${person.email}`} className="ci-val">{person.email}</a>
+                </div>
+              </div>
+            ))}
             <div className="ci"><div className="ci-label">{t.contacts.labels.phone}</div><a href="tel:+73422799654" className="ci-val">+7 (3422) 799-654</a></div>
             <div className="ci ci-address">
               <div className="ci-label">{t.contacts.labels.address}</div>
@@ -841,6 +873,9 @@ function Footer() {
         <div className="footer-copy">{t.footer.copyright}</div>
       </div>
       <div className="footer-links">
+        {t.footer.emails.map((email) => (
+          <a href={`mailto:${email}`} key={email}>{email}</a>
+        ))}
         <a href="#solutions">{t.nav.solutions}</a>
         <a href="#products">{t.nav.products}</a>
         <a href="#about">{t.nav.about}</a>

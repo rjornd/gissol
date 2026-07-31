@@ -394,8 +394,8 @@ select:focus-visible,
 }
 .hero-app-chrome {
   height: 34px;
-  background: #eef3f4;
-  border-bottom: 1px solid rgba(10,37,64,0.12);
+  background: #183247;
+  border-bottom: 1px solid rgba(255,255,255,0.16);
   display: flex;
   align-items: center;
   gap: 0.45rem;
@@ -413,7 +413,7 @@ select:focus-visible,
 .hero-app-title {
   margin-left: 0.4rem;
   font-size: 0.7rem;
-  color: var(--text-muted);
+  color: #c9d7e2;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
@@ -494,7 +494,7 @@ html[data-theme="light"] .hero-visual { opacity: 0.1; }
 
 .clients-strip {
   width: 100vw;
-  padding: 3rem;
+  padding: 3.75rem;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   background: var(--surface);
@@ -510,8 +510,8 @@ html[data-theme="light"] .hero-visual { opacity: 0.1; }
 }
 .clients-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 3rem;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.75rem;
   align-items: center;
 }
 .client-logo {
@@ -519,21 +519,26 @@ html[data-theme="light"] .hero-visual { opacity: 0.1; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 50px;
-  opacity: 0.6;
-  filter: grayscale(1);
-  transition: opacity 0.2s, filter 0.2s, transform 0.2s;
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--text);
+  min-height: 130px;
+  opacity: 0.88;
+  transition: opacity 0.2s, transform 0.2s;
   text-align: center;
-  font-size: 0.85rem;
-  line-height: 1.15;
 }
 .client-logo:hover {
   opacity: 1;
-  filter: grayscale(0);
   transform: translateY(-2px);
+}
+.client-logo-image {
+  display: block;
+  width: 100%;
+  max-width: 187.5px;
+  height: 90px;
+  object-fit: contain;
+}
+.client-logo-image[data-logo="miningInstitute"],
+.client-logo-image[data-logo="permPolytechnic"] {
+  max-width: 140px;
+  height: 67.5px;
 }
 .client-logo small {
   display: block;
@@ -978,6 +983,8 @@ html[data-theme="dark"] .contact-shell {
   line-height: 1.35;
 }
 .ci { display: flex; flex-direction: column; gap: 0.18rem; padding-bottom: 0.95rem; border-bottom: 1px solid rgba(29,158,117,0.08); }
+.contact-person { display: grid; gap: 0.85rem; }
+.contact-person + .contact-person { padding-top: 0.2rem; }
 .ci-address { border-bottom: none; padding-bottom: 0; }
 .ci-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); }
 .ci-val { font-size: 0.92rem; color: var(--text); text-decoration: none; transition: color 0.32s; }
@@ -1210,7 +1217,7 @@ footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex;
 .footer-logo { display: flex; align-items: center; gap: 0.55rem; text-decoration: none; }
 .footer-brand { font-family: var(--font-display); font-size: 0.7rem; font-weight: 600; color: var(--text-dim); letter-spacing: 0.06em; transition: color 0.32s; text-decoration: none;}
 .footer-copy { font-size: 0.72rem; color: var(--text-dim); transition: color 0.32s; }
-.footer-links { display: flex; gap: 1.75rem; }
+.footer-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.75rem 1.75rem; }
 .footer-links a { font-size: 0.72rem; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: var(--teal-light); }
 
@@ -1277,8 +1284,8 @@ footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex;
   .contact-info { padding-left: 0; padding-top: 1.5rem; border-left: 0; border-top: 1px solid rgba(29,158,117,0.14); }
   .contact-map { height: 280px; }
   .template-section { padding: 4rem 1.5rem; }
-  .clients-strip { padding: 2.5rem 1.5rem; }
-  .clients-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .clients-strip { padding: 3.125rem 1.875rem; }
+  .clients-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .case-header,
   .cta-banner { grid-template-columns: 1fr; gap: 2rem; }
   .case-cta { flex-direction: column; align-items: flex-start; }
@@ -1290,9 +1297,9 @@ footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex;
   .cta-btn { justify-self: start; }
   footer { padding: 1.5rem; flex-direction: column; align-items: flex-start; }
   .footer-links { flex-wrap: wrap; gap: 1rem; }
-  
+
   .parallax-bg {
-    background-attachment: scroll !important; /* Fix iOS fixed background bug */
+    background-attachment: scroll !important;
   }
 
   .nav-dots-container {
@@ -1328,11 +1335,11 @@ footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex;
   .contact-map { height: 240px; }
   .section { padding: 3rem 1rem; }
   .template-section { padding: 3rem 1rem; }
-  .clients-strip { padding: 2.25rem 1rem; }
-  .clients-grid,
+  .clients-strip { padding: 2.8125rem 1.25rem; }
   .case-metrics,
   .process-steps,
   .product-pricing { grid-template-columns: 1fr; }
+  .clients-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .process-steps {
     gap: 0.9rem;
     overflow: hidden;
