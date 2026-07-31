@@ -102,6 +102,9 @@ assert.match(
 assert.doesNotMatch(styles, /\.client-logo-image\[data-logo="eurochem"\]/);
 assert.match(styles, /@media \(max-width:\s*900px\)[\s\S]*?\.clients-strip\s*\{\s*padding:\s*3\.125rem 1\.875rem;/);
 assert.match(styles, /@media \(max-width:\s*560px\)[\s\S]*?\.clients-strip\s*\{\s*padding:\s*2\.8125rem 1\.25rem;/);
+assert.match(styles, /\.hero-app-chrome\s*\{[\s\S]*?background:\s*#183247;/);
+assert.match(styles, /\.hero-app-chrome\s*\{[\s\S]*?border-bottom:\s*1px solid rgba\(255,\s*255,\s*255,\s*0\.16\);/);
+assert.match(styles, /\.hero-app-title\s*\{[\s\S]*?color:\s*#c9d7e2;/);
 assert.match(app, /data-logo=\{client\.logoKey\}/);
 assert.match(styles, /\.case-metrics\s*\{[\s\S]*?grid-template-columns:\s*repeat\(4,\s*1fr\)/);
 assert.match(styles, /@media \(max-width:\s*900px\)[\s\S]*?\.case-metrics\s*\{\s*grid-template-columns:\s*repeat\(2,\s*1fr\)/);

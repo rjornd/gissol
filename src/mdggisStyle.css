@@ -394,8 +394,8 @@ select:focus-visible,
 }
 .hero-app-chrome {
   height: 34px;
-  background: #eef3f4;
-  border-bottom: 1px solid rgba(10,37,64,0.12);
+  background: #183247;
+  border-bottom: 1px solid rgba(255,255,255,0.16);
   display: flex;
   align-items: center;
   gap: 0.45rem;
@@ -413,7 +413,7 @@ select:focus-visible,
 .hero-app-title {
   margin-left: 0.4rem;
   font-size: 0.7rem;
-  color: var(--text-muted);
+  color: #c9d7e2;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
