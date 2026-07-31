@@ -58,7 +58,7 @@ const en = {
       { name: 'MINING INSTITUTE', meta: 'Ural Branch RAS', logoKey: 'miningInstitute' },
       { name: 'PERM POLYTECH', meta: 'MDG&GIS department', logoKey: 'permPolytechnic' },
       { name: 'EUROCHEM', meta: 'fertilizer producer', logoKey: 'eurochem' },
-      { name: 'ACRON', meta: 'fertilizer producer', logoKey: 'acron' },
+      { name: 'ACRON', meta: 'PJSC · client', logoKey: 'acron' },
     ],
   },
   case: {

@@ -58,7 +58,7 @@ const ru = {
       { name: 'ГОРНЫЙ ИНСТИТУТ', meta: 'УрО РАН', logoKey: 'miningInstitute' },
       { name: 'ПЕРМСКИЙ ПОЛИТЕХ', meta: 'кафедра МДГиГИС', logoKey: 'permPolytechnic' },
       { name: 'ЕВРОХИМ', meta: 'горно-химическая компания', logoKey: 'eurochem' },
-      { name: 'АКРОН', meta: 'производитель удобрений', logoKey: 'acron' },
+      { name: 'АКРОН', meta: 'ПАО · клиент', logoKey: 'acron' },
     ],
   },
   case: {

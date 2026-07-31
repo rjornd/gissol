@@ -538,7 +538,7 @@ html[data-theme="light"] .hero-visual { opacity: 0.1; }
 .client-logo-image[data-logo="miningInstitute"],
 .client-logo-image[data-logo="permPolytechnic"] {
   max-width: 140px;
-  height: 67.5px;
+  height: 90px;
 }
 .client-logo small {
   display: block;

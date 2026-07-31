@@ -40,6 +40,10 @@ for (const name of ['УРАЛКАЛИЙ', 'ВНИИ ГАЛУРГИИ', 'ГОРН
 }
 const ruClients = ru.slice(ru.indexOf('clients:'), ru.indexOf('case:'));
 assert.doesNotMatch(ruClients, /GLOBALCIO/i);
+const ruAcron = ruData.clients.logos.find(({ logoKey }) => logoKey === 'acron');
+const enAcron = enData.clients.logos.find(({ logoKey }) => logoKey === 'acron');
+assert.equal(ruAcron?.meta, 'ПАО · клиент');
+assert.equal(enAcron?.meta, 'PJSC · client');
 
 assert.match(
   app,
@@ -103,7 +107,7 @@ assert.match(styles, /\.client-logo\s*\{[\s\S]*?min-height:\s*130px;/);
 assert.match(styles, /\.client-logo-image\s*\{[\s\S]*?max-width:\s*187\.5px;[\s\S]*?height:\s*90px;/);
 assert.match(
   styles,
-  /\.client-logo-image\[data-logo="miningInstitute"\],[\s\S]*?max-width:\s*140px;[\s\S]*?height:\s*67\.5px;/,
+  /\.client-logo-image\[data-logo="miningInstitute"\],[\s\S]*?max-width:\s*140px;[\s\S]*?height:\s*90px;/,
 );
 assert.doesNotMatch(styles, /\.client-logo-image\[data-logo="eurochem"\]/);
 assert.match(styles, /@media \(max-width:\s*900px\)[\s\S]*?\.clients-strip\s*\{\s*padding:\s*3\.125rem 1\.875rem;/);
