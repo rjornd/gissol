@@ -35,6 +35,12 @@ for (const name of ['УРАЛКАЛИЙ', 'ВНИИ ГАЛУРГИИ', 'ГОРН
 const ruClients = ru.slice(ru.indexOf('clients:'), ru.indexOf('case:'));
 assert.doesNotMatch(ruClients, /GLOBALCIO/i);
 
+assert.match(
+  app,
+  /const visibleClients = t\.clients\.logos\.filter\(\(\{ logoKey \}\) => logoKey !== 'eurochem'\);/,
+);
+assert.match(app, /\{visibleClients\.map\(\(client\) => \(/);
+
 assert.match(app, /clientLogoAssets\[client\.logoKey\]/);
 assert.match(app, /import mineimg from '\.\/assets\/shahta\.png\?inline'/);
 assert.match(app, /import mine3 from '\.\/assets\/mine3\.jpg\?inline'/);
@@ -85,8 +91,17 @@ for (const file of vectorLogos) {
   assert.doesNotMatch(svg, /#[0-9a-f]{6}/gi, `${file} must use currentColor/black and white only`);
 }
 
-assert.match(styles, /\.client-logo-image\s*\{[\s\S]*?max-width:\s*150px;/);
-assert.match(styles, /\.client-logo-image\s*\{[\s\S]*?height:\s*72px;/);
+assert.match(styles, /\.clients-strip\s*\{[\s\S]*?padding:\s*3\.75rem;/);
+assert.match(styles, /\.clients-grid\s*\{[\s\S]*?grid-template-columns:\s*repeat\(5,\s*minmax\(0,\s*1fr\)\)/);
+assert.match(styles, /\.client-logo\s*\{[\s\S]*?min-height:\s*130px;/);
+assert.match(styles, /\.client-logo-image\s*\{[\s\S]*?max-width:\s*187\.5px;[\s\S]*?height:\s*90px;/);
+assert.match(
+  styles,
+  /\.client-logo-image\[data-logo="miningInstitute"\],[\s\S]*?max-width:\s*140px;[\s\S]*?height:\s*67\.5px;/,
+);
+assert.doesNotMatch(styles, /\.client-logo-image\[data-logo="eurochem"\]/);
+assert.match(styles, /@media \(max-width:\s*900px\)[\s\S]*?\.clients-strip\s*\{\s*padding:\s*3\.125rem 1\.875rem;/);
+assert.match(styles, /@media \(max-width:\s*560px\)[\s\S]*?\.clients-strip\s*\{\s*padding:\s*2\.8125rem 1\.25rem;/);
 assert.match(app, /data-logo=\{client\.logoKey\}/);
 assert.match(styles, /\.case-metrics\s*\{[\s\S]*?grid-template-columns:\s*repeat\(4,\s*1fr\)/);
 assert.match(styles, /@media \(max-width:\s*900px\)[\s\S]*?\.case-metrics\s*\{\s*grid-template-columns:\s*repeat\(2,\s*1fr\)/);

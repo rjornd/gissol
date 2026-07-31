@@ -494,7 +494,7 @@ html[data-theme="light"] .hero-visual { opacity: 0.1; }
 
 .clients-strip {
   width: 100vw;
-  padding: 3rem;
+  padding: 3.75rem;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   background: var(--surface);
@@ -510,7 +510,7 @@ html[data-theme="light"] .hero-visual { opacity: 0.1; }
 }
 .clients-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1.75rem;
   align-items: center;
 }
@@ -519,7 +519,7 @@ html[data-theme="light"] .hero-visual { opacity: 0.1; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 104px;
+  min-height: 130px;
   opacity: 0.88;
   transition: opacity 0.2s, transform 0.2s;
   text-align: center;
@@ -531,17 +531,14 @@ html[data-theme="light"] .hero-visual { opacity: 0.1; }
 .client-logo-image {
   display: block;
   width: 100%;
-  max-width: 150px;
-  height: 72px;
+  max-width: 187.5px;
+  height: 90px;
   object-fit: contain;
 }
 .client-logo-image[data-logo="miningInstitute"],
 .client-logo-image[data-logo="permPolytechnic"] {
-  max-width: 112px;
-  height: 54px;
-}
-.client-logo-image[data-logo="eurochem"] {
-  transform: translateY(2.5px);
+  max-width: 140px;
+  height: 67.5px;
 }
 .client-logo small {
   display: block;
@@ -1287,7 +1284,7 @@ footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex;
   .contact-info { padding-left: 0; padding-top: 1.5rem; border-left: 0; border-top: 1px solid rgba(29,158,117,0.14); }
   .contact-map { height: 280px; }
   .template-section { padding: 4rem 1.5rem; }
-  .clients-strip { padding: 2.5rem 1.5rem; }
+  .clients-strip { padding: 3.125rem 1.875rem; }
   .clients-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .case-header,
   .cta-banner { grid-template-columns: 1fr; gap: 2rem; }
@@ -1338,7 +1335,7 @@ footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex;
   .contact-map { height: 240px; }
   .section { padding: 3rem 1rem; }
   .template-section { padding: 3rem 1rem; }
-  .clients-strip { padding: 2.25rem 1rem; }
+  .clients-strip { padding: 2.8125rem 1.25rem; }
   .case-metrics,
   .process-steps,
   .product-pricing { grid-template-columns: 1fr; }

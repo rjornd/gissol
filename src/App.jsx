@@ -356,12 +356,13 @@ function HeroSection() {
 
 function ClientsStrip() {
   const { t } = useI18n();
+  const visibleClients = t.clients.logos.filter(({ logoKey }) => logoKey !== 'eurochem');
 
   return (
     <div className="clients-strip reveal">
       <div className="clients-label">{t.clients.label}</div>
       <div className="clients-grid">
-        {t.clients.logos.map((client) => (
+        {visibleClients.map((client) => (
           <div className="client-logo" key={client.name}>
             <img
               className="client-logo-image"
