@@ -142,7 +142,7 @@ const en = {
     title: 'What industry specialists say',
     sub: 'Opinions from experts who work with our solutions in daily mine and institute workflows.',
     items: [
-      { initials: 'MS', text: 'The solution helped us digitize large volumes of archived mine surveying documentation and reduce routine calculation time dramatically.', name: 'Chief mine surveyor', role: 'large mining enterprise' },
+      { initials: 'MS', text: 'The solution helped us digitize large volumes of archived mine surveying documentation and reduce routine calculation time dramatically.', name: 'Chief Mine Surveyor, PJSC Uralkali', role: 'A. M. Macheret' },
       { initials: 'GS', text: 'The GIS Solutions team understands mining specifics. That mix of IT capability and industry expertise is rare, and our geologists could work with them in one language.', name: 'Lead geologist', role: 'potash deposit' },
       { initials: 'PE', text: 'A mine digital twin is not just a visualization. It is a working tool used every day by geomechanics and planning engineers.', name: 'Planning engineer', role: 'underground mine' },
     ],

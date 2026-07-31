@@ -23,6 +23,12 @@ assert.deepEqual(enData.case.metrics[0], {
   label: ['specialists work', 'in the system'],
 });
 
+assert.equal(ruData.testimonials.items[0].name, 'Главный маркшейдер ПАО «Уралкалий»');
+assert.equal(ruData.testimonials.items[0].role, 'А. М. Мачерет');
+assert.equal(enData.testimonials.items[0].name, 'Chief Mine Surveyor, PJSC Uralkali');
+assert.equal(enData.testimonials.items[0].role, 'A. M. Macheret');
+assert.equal(ruData.testimonials.items[0].initials, 'МС');
+
 assert.match(ru, /\{ num: '15', label: \['направлений', 'автоматизации'\] \}/);
 assert.match(ru, /\{ num: '15', label: \['автоматизированных служб', 'предприятий и научных институтов'\] \}/);
 assert.doesNotMatch(ru, /\{ num: '9', label: \['автоматизированных'/);
