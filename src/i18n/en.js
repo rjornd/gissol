@@ -53,11 +53,11 @@ const en = {
   clients: {
     label: 'Trusted by industry teams and partners',
     logos: [
-      { name: 'URALKALI', meta: 'client', logoKey: 'uralkali' },
+      { name: 'URALKALI', meta: 'JSC · client', logoKey: 'uralkali' },
       { name: 'VNII GALURGII', meta: 'partner', logoKey: 'vniigGalurgii' },
       { name: 'MINING INSTITUTE', meta: 'Ural Branch RAS', logoKey: 'miningInstitute' },
-      { name: 'PERM POLYTECH', meta: 'MDG&GIS department', logoKey: 'permPolytechnic' },
-      { name: 'EUROCHEM', meta: 'fertilizer producer', logoKey: 'eurochem' },
+      { name: 'PERM POLYTECH', meta: 'MsDG&GIS department', logoKey: 'permPolytechnic' },
+      { name: 'EUROCHEM', meta: 'JSC · client', logoKey: 'eurochem' },
       { name: 'ACRON', meta: 'PJSC · client', logoKey: 'acron' },
     ],
   },

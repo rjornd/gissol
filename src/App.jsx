@@ -356,7 +356,7 @@ function HeroSection() {
 
 function ClientsStrip() {
   const { t } = useI18n();
-  const visibleClients = t.clients.logos.filter(({ logoKey }) => logoKey !== 'eurochem');
+  const visibleClients = t.clients.logos.filter(({ logoKey }) => logoKey !== 'acron');
 
   return (
     <div className="clients-strip reveal">
@@ -364,13 +364,15 @@ function ClientsStrip() {
       <div className="clients-grid">
         {visibleClients.map((client) => (
           <div className="client-logo" key={client.name}>
-            <img
-              className="client-logo-image"
-              data-logo={client.logoKey}
-              src={clientLogoAssets[client.logoKey]}
-              alt={client.name}
-              loading="lazy"
-            />
+            <div className="client-logo-media">
+              <img
+                className="client-logo-image"
+                data-logo={client.logoKey}
+                src={clientLogoAssets[client.logoKey]}
+                alt={client.name}
+                loading="lazy"
+              />
+            </div>
             <small>{client.meta}</small>
           </div>
         ))}

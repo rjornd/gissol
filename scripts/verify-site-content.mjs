@@ -47,7 +47,7 @@ assert.equal(enAcron?.meta, 'PJSC · client');
 
 assert.match(
   app,
-  /const visibleClients = t\.clients\.logos\.filter\(\(\{ logoKey \}\) => logoKey !== 'eurochem'\);/,
+  /const visibleClients = t\.clients\.logos\.filter\(\(\{ logoKey \}\) => logoKey !== 'acron'\);/,
 );
 assert.match(app, /\{visibleClients\.map\(\(client\) => \(/);
 
