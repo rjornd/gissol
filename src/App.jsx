@@ -18,8 +18,9 @@ import eurochemLogo from './assets/clients/eurochem.jpg';
 import acronLogo from './assets/clients/acron-engineering.jpg';
 import MapSection from './MapSection';
 import NavigationDots from './NavigationDots.jsx';
-import { getCardsData } from './cardsData.js';
+import { getCardsData, getNumberedSolutionGroups } from './cardsData.js';
 import { useI18n } from './i18n/LanguageProvider.jsx';
+import { createCursorController } from './cursorMotion.js';
 
 const clientLogoAssets = {
   uralkali: uralkaliLogo,
@@ -70,34 +71,53 @@ function useScrollReveal() {
 }
 
 function CustomCursor() {
-  const [position, setPosition] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-  const [isHovering, setIsHovering] = useState(false);
+  const cursorRef = useRef(null);
 
   useEffect(() => {
-    const shouldDisableCursor = window.matchMedia('(max-width: 900px), (prefers-reduced-motion: reduce)').matches;
+    const shouldDisableCursor = window.matchMedia('(max-width: 900px), (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse)').matches;
     if (shouldDisableCursor) return;
 
-    const onMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      
-      const target = e.target;
-      const isInteractive = target.closest('a, button, input, textarea, select, .nav-dot, .gallery-dot, .sol-card, .client-logo, [role="button"]');
-      setIsHovering(!!isInteractive);
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
+    document.documentElement.classList.add('custom-cursor-enabled');
+
+    const controller = createCursorController({
+      requestFrame: window.requestAnimationFrame.bind(window),
+      cancelFrame: window.cancelAnimationFrame.bind(window),
+      renderPosition: ({ x, y, target }) => {
+        cursor.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+        cursor.classList.add('visible');
+        const interactive = target?.closest?.('a, button, input, textarea, select, .nav-dot, .gallery-dot, .sol-card, .client-logo, [role="button"]');
+        cursor.classList.toggle('hovering', Boolean(interactive));
+      },
+      hidePosition: () => {
+        cursor.classList.remove('visible', 'hovering');
+      },
+    });
+
+    const onPointerMove = (event) => {
+      controller.move({ x: event.clientX, y: event.clientY, target: event.target });
+    };
+    const hideCursor = () => controller.hide();
+    const onPointerOut = (event) => {
+      if (!event.relatedTarget) hideCursor();
     };
 
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', onMouseMove);
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('pointerout', onPointerOut, { passive: true });
+    window.addEventListener('blur', hideCursor);
+
+    return () => {
+      controller.dispose();
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerout', onPointerOut);
+      window.removeEventListener('blur', hideCursor);
+      document.documentElement.classList.remove('custom-cursor-enabled');
+    };
   }, []);
 
-  return (
-    <div 
-      className={`custom-cursor ${isHovering ? 'hovering' : ''}`}
-      style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`
-      }}
-    />
-  );
+  return <div ref={cursorRef} className="custom-cursor" aria-hidden="true" />;
 }
 
 // Wrapper for Acron.ru like parallax background
@@ -468,10 +488,7 @@ function SolutionsSection() {
   const { cardsData } = getCardsData(t);
   const [selectedSolution, setSelectedSolution] = useState(null);
   const [isReturning, setIsReturning] = useState(false);
-  const solutionGroups = t.solutions.groups.map((group) => ({
-    ...group,
-    cards: group.cardIndexes.map((index) => cardsData[index]),
-  }));
+  const solutionGroups = getNumberedSolutionGroups(cardsData, t.solutions.groups);
 
   return (
     <SectionWithBgImage image={mine3} id="solutions">
@@ -508,8 +525,7 @@ function SolutionsSection() {
                   <div className="solution-group-desc">{group.desc}</div>
                 </div>
                 <div className="sol-grid">
-                  {group.cards.map((card) => {
-                    const idx = cardsData.indexOf(card);
+                  {group.cards.map(({ card, number }) => {
                     return (
                       <button
                         className="sol-card"
@@ -523,7 +539,7 @@ function SolutionsSection() {
                           }, 10);
                         }}
                       >
-                        <div className="sol-num">{String(idx + 1).padStart(2, '0')}</div>
+                        <div className="sol-num">{String(number).padStart(2, '0')}</div>
                         <div className="sol-icon" dangerouslySetInnerHTML={{ __html: card.icon }} />
                         <div className="sol-title">{card.text}</div>
                         <div className="sol-desc">{card.description}</div>
@@ -853,7 +869,11 @@ function ContactsSection() {
               <div className="ci-val"><Lines items={t.contacts.address} /></div>
             </div>
             <div className="contact-map">
-              <MapSection interactionLabel={t.aria.mapInteraction} />
+              <MapSection
+                interactionLabel={t.aria.mapInteraction}
+                fallback={t.contacts.mapFallback}
+                address={t.contacts.address}
+              />
             </div>
           </div>
         </div>

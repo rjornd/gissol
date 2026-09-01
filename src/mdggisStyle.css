@@ -69,9 +69,9 @@ html { scroll-behavior: smooth; }
   height: 0 !important;
 }
 
-/* Hide default cursor globally */
+/* Hide the default cursor only after the custom cursor is active. */
 @media (min-width: 901px) {
-  * {
+  html.custom-cursor-enabled * {
     cursor: none !important;
   }
 }
@@ -98,9 +98,14 @@ body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-  backdrop-filter: invert(10%);
+  opacity: 0;
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, opacity 0.12s ease;
+  will-change: transform;
+}
+
+.custom-cursor.visible {
+  opacity: 1;
 }
 
 .custom-cursor.hovering {
@@ -1106,6 +1111,68 @@ html[data-theme="dark"] .next-step-item {
   z-index: 2;
   cursor: grab;
   background: transparent;
+}
+.map-fallback {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(238, 244, 247, 0.88), rgba(238, 244, 247, 0.94)),
+    repeating-linear-gradient(35deg, transparent 0 32px, rgba(29, 158, 117, 0.12) 33px 34px),
+    repeating-linear-gradient(125deg, transparent 0 42px, rgba(10, 37, 64, 0.1) 43px 44px);
+  color: var(--text);
+  text-align: center;
+}
+.map-fallback-marker {
+  position: absolute;
+  top: 24%;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  border: 6px solid var(--teal);
+  border-radius: 50% 50% 50% 0;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  box-shadow: 0 8px 22px rgba(29, 158, 117, 0.25);
+}
+.map-fallback-marker::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: #fff;
+}
+.map-fallback-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 360px;
+  margin-top: 3.25rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+.map-fallback-content strong {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+}
+.map-fallback-address {
+  color: var(--text-muted);
+}
+.map-fallback-content a {
+  margin-top: 0.35rem;
+  color: var(--teal-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+.map-fallback-content a:hover,
+.map-fallback-content a:focus-visible {
+  color: var(--teal);
+  text-decoration: underline;
 }
 
 /* TESTIMONIALS, CTA */

@@ -204,6 +204,11 @@ const en = {
       },
     ],
     address: ['Russian Federation, Perm', 'Monastyrskaya St., 12, office 104'],
+    mapFallback: {
+      title: 'Map unavailable',
+      description: 'The browser could not start the interactive WebGL map.',
+      link: 'Open in Yandex Maps',
+    },
     mail: {
       subjectFallback: 'website visitor',
       subjectPrefix: 'Request from',

@@ -44,3 +44,15 @@ export function getCardsData(t) {
 
   return { cardsData, productsCardsData };
 }
+
+export function getNumberedSolutionGroups(cardsData, groups) {
+  let nextNumber = 1;
+
+  return groups.map((group) => ({
+    ...group,
+    cards: group.cardIndexes.map((index) => ({
+      card: cardsData[index],
+      number: nextNumber++,
+    })),
+  }));
+}
